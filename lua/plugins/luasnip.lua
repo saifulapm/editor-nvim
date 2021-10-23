@@ -29,13 +29,13 @@ ls.config.set_config {
   },
   enable_autosnippets = true,
 }
-local opts = { expr = true }
-as.imap('<c-j>', "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>'", opts)
-as.imap('<c-k>', "luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev': '<c-k>'", opts)
-as.snoremap('<c-j>', function()
+local opts = { noremap = false, expr = true }
+global.map('i', '<c-j>', "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>'", opts)
+global.map('i', '<c-k>', "luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev': '<c-k>'", opts)
+global.map('s', '<c-j>', function()
   ls.jump(1)
 end)
-as.snoremap('<c-k>', function()
+global.map('s', '<c-k>', function()
   ls.jump(-1)
 end)
 

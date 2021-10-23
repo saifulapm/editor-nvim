@@ -44,7 +44,6 @@ local function sort_by_mtime(a, b)
 end
 
 local groups = require 'bufferline.groups'
-local List = require 'plenary.collections.py_list'
 
 bufferline.setup {
   options = {

@@ -31,10 +31,10 @@ M.setup = function(on_attach, capabilities)
             ts_utils.setup(ts_utils_settings)
             ts_utils.setup_client(client)
 
-            global.map("n", "gs", ":TSLspOrganize<CR>", nil, { buffer = bufnr })
-            global.map("n", "gI", ":TSLspRenameFile<CR>", nil, { buffer = bufnr })
-            global.map("n", "go", ":TSLspImportAll<CR>", nil, { buffer = bufnr })
-            global.map("n", "qq", ":TSLspFixCurrent<CR>", nil, { buffer = bufnr })
+            global.map("n", "gs", ":TSLspOrganize<CR>", { buffer = bufnr })
+            global.map("n", "gI", ":TSLspRenameFile<CR>", { buffer = bufnr })
+            global.map("n", "go", ":TSLspImportAll<CR>", { buffer = bufnr })
+            global.map("n", "qq", ":TSLspFixCurrent<CR>", { buffer = bufnr })
         end,
         flags = {
             debounce_text_changes = 150,
