@@ -1,3 +1,6 @@
+-- HACK: see https://github.com/wbthomason/packer.nvim/issues/180
+vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
+
 -- Global Modules
 require('core')
 -- Loading Modules
