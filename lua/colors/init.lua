@@ -1,4 +1,5 @@
 local M = {}
+local theme = nil
 
 M.get = function()
   if not vim.g.colors_name then
