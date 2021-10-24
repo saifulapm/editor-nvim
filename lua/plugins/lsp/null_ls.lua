@@ -10,11 +10,20 @@ local sources = {
       return utils.root_has_file 'stylua.toml'
     end,
   },
+  b.formatting.phpcsfixer.with {
+    args = {
+      '--no-interaction',
+      '--quiet',
+      -- '--config=~/.dotfiles/.php-cs-fixer.php',
+      'fix',
+      '$FILENAME',
+    },
+  },
   b.formatting.trim_whitespace.with { filetypes = { 'tmux', 'teal', 'zsh' } },
   b.formatting.shfmt,
   b.diagnostics.write_good,
   b.diagnostics.markdownlint,
-  b.diagnostics.teal,
+  -- b.diagnostics.teal,
   b.diagnostics.shellcheck.with { diagnostics_format = '#{m} [#{c}]' },
   b.code_actions.gitsigns,
   b.hover.dictionary,

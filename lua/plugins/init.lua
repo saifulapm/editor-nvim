@@ -407,7 +407,6 @@ return packer.startup(function()
   use {
     { 'dart-lang/dart-vim-plugin', ft = 'dart' },
     { 'plasticboy/vim-markdown', ft = 'markdown' },
-    { 'fladson/vim-kitty', ft = 'kitty' },
     {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
@@ -640,6 +639,12 @@ return packer.startup(function()
     },
     {
       'norcalli/nvim-colorizer.lua',
+      cmd = {
+        'ColorizerToggle',
+        'ColorizerAttachToBuffer',
+        'ColorizerDetachFromBuffer',
+        'ColorizerReloadAllBuffers',
+      },
       ft = { 'html', 'css', 'sass', 'vim', 'typescript', 'typescriptreact' },
       config = function()
         require('colorizer').setup {

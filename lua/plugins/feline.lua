@@ -103,7 +103,7 @@ components.active[1][2] = {
     local icon = require('nvim-web-devicons').get_icon(filename, extension)
     if icon == nil then
       icon = ' '
-      return ' ' .. icon .. ' SAIFUL '
+      return icon .. ' '
     end
     return ' ' .. icon .. ' ' .. filename .. ' '
   end,
@@ -217,7 +217,7 @@ components.active[3][1] = {
   end,
 
   hl = { fg = colors.red },
-  icon = '  ',
+  icon = '✗ ',
 }
 
 components.active[3][2] = {
@@ -234,8 +234,8 @@ components.active[3][3] = {
   enabled = function()
     return lsp.diagnostics_exist 'Hint'
   end,
-  hl = { fg = colors.grey_fg2 },
-  icon = '  ',
+  hl = { fg = colors.green },
+  icon = '  ',
 }
 
 components.active[3][4] = {
@@ -243,14 +243,14 @@ components.active[3][4] = {
   enabled = function()
     return lsp.diagnostics_exist 'Information'
   end,
-  hl = { fg = colors.green },
-  icon = '  ',
+  hl = { fg = colors.nord_blue },
+  icon = '  ',
 }
 
 components.active[3][5] = {
   provider = function()
     if next(vim.lsp.buf_get_clients()) ~= nil then
-      return '  LSP'
+      return '   LSP'
     else
       return ''
     end
@@ -270,7 +270,7 @@ components.active[3][6] = {
     fg = colors.grey_fg2,
     bg = colors.statusline_bg,
   },
-  icon = '  ',
+  icon = '   ',
 }
 
 components.active[3][7] = {

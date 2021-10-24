@@ -1,7 +1,7 @@
 local sumneko = require 'plugins.lsp.sumneko'
 local null_ls = require 'plugins.lsp.null_ls'
 local tsserver = require 'plugins.lsp.tsserver'
-local intelephense = require 'plugins.lsp.tsserver'
+local intelephense = require 'plugins.lsp.intelephense'
 local lsp = vim.lsp
 
 local function lspSymbol(name, icon)

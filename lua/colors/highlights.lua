@@ -179,7 +179,10 @@ fg('TelescopePromptBorder', line)
 fg('TelescopeResultsBorder', line)
 
 -- CMP
-fg('CmpItemAbbrMatchFuzzy', grey_fg .. ' gui=italic')
+fg('CmpItemAbbr', grey_fg .. ' gui=NONE')
+fg('CmpItemMenu', green .. ' gui=NONE')
+fg('CmpItemAbbrMatch', nord_blue .. ' gui=bold')
+fg('CmpItemAbbrMatchFuzzy', purple .. ' gui=italic')
 fg('CmpItemAbbrDeprecated', 'NONE gui=strikethrough')
 
 -- Quickfix
