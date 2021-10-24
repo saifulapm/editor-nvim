@@ -268,6 +268,72 @@ return packer.startup(function()
         require "plugins.gitsigns"
       end
     },
+    {
+      'ruifm/gitlinker.nvim',
+      keys = { '<localleader>gu', '<localleader>go' },
+      config = function ()
+        local linker = require 'gitlinker'
+        linker.setup { mappings = '<localleader>gu' }
+        map('n', '<localleader>go', function()
+          linker.get_repo_url { action_callback = require('gitlinker.actions').open_in_browser }
+        end)
+      end,
+    },
+    {
+      'TimUntersberger/neogit',
+      cmd = 'Neogit',
+      keys = { '<localleader>gs', '<localleader>gl', '<localleader>gp' },
+      config = function()
+        local neogit = require 'neogit'
+        neogit.setup {
+          disable_signs = false,
+          disable_hint = true,
+          disable_commit_confirmation = true,
+          disable_builtin_notifications = true,
+          disable_insert_on_commit = false,
+          signs = {
+            section = { '', '' }, -- "", ""
+            item = { '▸', '▾' },
+            hunk = { '樂', '' },
+          },
+          integrations = {
+            diffview = true,
+          },
+        }
+        map('n', '<localleader>gs', function()
+          neogit.open()
+        end)
+        map('n', '<localleader>gc', function()
+          neogit.open { 'commit' }
+        end)
+        map('n', '<localleader>gl', neogit.popups.pull.create)
+        map('n', '<localleader>gp', neogit.popups.push.create)
+      end
+    },
+    {
+      'sindrets/diffview.nvim',
+      cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
+      config = function()
+        require('diffview').setup {
+          enhanced_diff_hl = true,
+          key_bindings = {
+            file_panel = { q = '<Cmd>DiffviewClose<CR>' },
+            view = { q = '<Cmd>DiffviewClose<CR>' },
+          },
+        }
+      end,
+    },
+    {
+      'pwntester/octo.nvim',
+      cmd = 'Octo*',
+      setup = function()
+        map('n', '<localleader>op', '<cmd>Octo pr list<CR>')
+        map('n', '<localleader>ol', '<cmd>Octo issue list<CR>')
+      end,
+      config = function()
+        require('octo').setup()
+      end,
+    }
   }
   --  }}}
 
@@ -316,28 +382,93 @@ return packer.startup(function()
   use {
     {'dart-lang/dart-vim-plugin'},
     {'plasticboy/vim-markdown'},
-    {'fladson/vim-kitty'}
+    {'fladson/vim-kitty'},
+    {
+      'iamcco/markdown-preview.nvim',
+      ft = 'markdown',
+      run = 'cd app && npm install',
+      config = function()
+        vim.g.mkdp_auto_start = 0
+        vim.g.mkdp_auto_close = 1
+      end,
+    },
   }
   -- }}}
 
-  -- Tools {{{
+  -- QuickFix {{{
+  use {
+    {'kevinhwang91/nvim-bqf', ft = 'qf' },
+    {
+      'https://gitlab.com/yorickpeterse/nvim-pqf',
+      ft = 'qf',
+      config = function ()
+        require('pqf').setup({
+          signs = {
+            error = '✗',
+            warning = '',
+            info = '',
+            hint = ''
+          }
+        })
+      end
+    },
+  }
+  -- }}}
+
+  -- Clipboard {{{
   use {
     {
-      'phaazon/hop.nvim',
-      keys = { { 'n', 's' }, { 'o', 'f' }, { 'x', 'f' }, { 'o', 'F' }, { 'x', 'F' } },
+      'AckslD/nvim-neoclip.lua',
+      event = 'BufRead',
       config = function()
-        local hop = require 'hop'
-        -- remove h,j,k,l from hops list of keys
-        hop.setup { keys = 'etovxqpdygfbzcisuran' }
-        map('n', 's', hop.hint_char1)
-        map({ 'o', 'x' }, 'F', function()
-          hop.hint_char1 { direction = require('hop.hint').HintDirection.BEFORE_CURSOR }
-        end)
-        map({ 'o', 'x' }, 'f', function()
-          hop.hint_char1 { direction = require('hop.hint').HintDirection.AFTER_CURSOR }
-        end)
+        require('neoclip').setup {
+          enable_persistant_history = true,
+          db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
+          keys = {
+            i = { select = '<CR>', paste = '<c-p>', paste_behind = '<c-k>' },
+            n = { select = '<CR>', paste = 'p', paste_behind = 'P' },
+          },
+        }
       end,
     },
+    {
+      'kevinhwang91/nvim-hclipboard',
+      event = 'BufRead',
+      config = function()
+        require('hclipboard').start()
+      end,
+    }
+  }
+  -- }}}
+
+  -- Editor Support {{{
+  use {
+    {
+      'ahmedkhalf/project.nvim',
+      config = function()
+        require('project_nvim').setup()
+      end,
+    },
+    {
+      'chentau/marks.nvim',
+      config = function()
+        require('marks').setup {
+          -- builtin_marks = { '.', '^' },
+          bookmark_0 = {
+            sign = '⚑',
+            virt_text = 'bookmarks',
+          },
+        }
+      end,
+    },
+    {
+      'arecarn/vim-fold-cycle',
+      config = function()
+        vim.g.fold_cycle_default_mapping = 0
+        map('n', '<BS>', '<Plug>(fold-cycle-close)', {noremap=false})
+      end,
+    },
+    { 'AndrewRadev/splitjoin.vim' },
     {
       'hrsh7th/vim-eft',
       config = function()
@@ -380,7 +511,7 @@ return packer.startup(function()
     },
     {
       'folke/todo-comments.nvim',
-      requires = 'nvim-lua/plenary.nvim',
+      after = 'plenary.nvim',
       config = function()
         require('todo-comments').setup {
           highlight = {
@@ -389,6 +520,138 @@ return packer.startup(function()
         }
         map('n', '<leader>lt', '<Cmd>TodoTrouble<CR>')
       end,
+    },
+    {
+      'rmagatti/auto-session',
+      cmd = { 'RestoreSession', 'SaveSession' },
+      config = function()
+        require('auto-session').setup {
+          auto_session_root_dir = ('%s/session/auto/'):format(vim.fn.stdpath 'data'),
+        }
+      end,
+    },
+    {
+      'svermeulen/vim-subversive',
+      config = function()
+        map('n', 'S', '<plug>(SubversiveSubstitute)', {noremap=false})
+      end,
+    },
+    {
+      'tommcdo/vim-exchange',
+      config = function()
+        vim.g.exchange_no_mappings = 1
+        map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', {noremap=false})
+        map('n', 'Xc', '<Plug>(ExchangeClear)', {noremap=false})
+      end,
+    },
+    {
+      'christoomey/vim-tmux-navigator',
+      config = function()
+        vim.g.tmux_navigator_no_mappings = 1
+        map('n', '<C-H>', '<cmd>TmuxNavigateLeft<cr>')
+        map('n', '<C-J>', '<cmd>TmuxNavigateDown<cr>')
+        map('n', '<C-K>', '<cmd>TmuxNavigateUp<cr>')
+        map('n', '<C-L>', '<cmd>TmuxNavigateRight<cr>')
+        -- Disable tmux navigator when zooming the Vim pane
+        vim.g.tmux_navigator_disable_when_zoomed = 1
+        vim.g.tmux_navigator_preserve_zoom = 1
+        vim.g.tmux_navigator_save_on_switch = 2
+      end,
+    },
+    {
+      'haya14busa/vim-asterisk',
+      event = 'BufReadPre',
+      config = function()
+        map('n', '*', '<Plug>(asterisk-*)', { noremap = false })
+        map('n', '#', '<Plug>(asterisk-#)', { noremap = false })
+      end,
+    },
+    {
+      'itchyny/vim-highlighturl',
+      event = 'BufRead',
+      config = function()
+        vim.g.highlighturl_guifg = '#51afef'
+      end,
+    },
+    {
+      'lukas-reineke/indent-blankline.nvim',
+      event = 'BufRead',
+      config = function()
+        require "plugins.blankline"
+      end
+    },
+    {
+      'rhysd/conflict-marker.vim',
+      event = 'BufReadPre',
+      config = function()
+        -- disable the default highlight group
+        vim.g.conflict_marker_highlight_group = ''
+        -- Include text after begin and end markers
+        vim.g.conflict_marker_begin = '^<<<<<<< .*$'
+        vim.g.conflict_marker_end = '^>>>>>>> .*$'
+      end
+    },
+    {
+      'norcalli/nvim-colorizer.lua',
+      ft = { 'html','css','sass','vim','typescript','typescriptreact'},
+      config = function()
+        require 'colorizer'.setup {
+          css = { rgb_fn = true; };
+          scss = { rgb_fn = true; };
+          sass = { rgb_fn = true; };
+          stylus = { rgb_fn = true; };
+          vim = { names = true; };
+          tmux = { names = false; };
+          'javascript';
+          'javascriptreact';
+          'typescript';
+          'typescriptreact';
+          html = {
+            mode = 'foreground';
+          }
+        }
+      end
+    },
+    {
+      'mg979/vim-visual-multi',
+      keys = '<C-e>',
+      config = function()
+        vim.g.VM_highlight_matches = 'underline'
+        vim.g.VM_theme = 'codedark'
+        vim.g.VM_maps = {
+          ['Find Under'] = '<C-e>',
+          ['Find Subword Under'] = '<C-e>',
+          ['Select Cursor Down'] = '\\j',
+          ['Select Cursor Up'] = '\\k',
+        }
+      end,
+    },
+    {'gpanders/editorconfig.nvim'},
+    {
+      'monaqa/dial.nvim',
+      keys = { { 'n', '-' }, { 'n', '+' }, { 'v', '-' }, { 'v', '+' } },
+      config = function()
+        local dial = require('dial')
+
+        dial.augends['custom#boolean'] = dial.common.enum_cyclic {
+          name = 'boolean',
+          strlist = { 'true', 'false' },
+        }
+        table.insert(dial.config.searchlist.normal, 'custom#boolean')
+
+        map({ 'n', 'v' }, '+', '<Plug>(dial-increment)', { noremap = false })
+        map({ 'n', 'v' }, '-', '<Plug>(dial-decrement)', { noremap = false })
+      end,
+    },
+  }
+  -- }}}
+
+  -- Tools {{{
+  use {
+    {
+      'soywod/himalaya',
+      cmd = 'Himalaya',
+      rtp = 'vim',
     },
     {
       'akinsho/toggleterm.nvim',
@@ -447,11 +710,46 @@ return packer.startup(function()
         }
       end,
     },
+    {
+      'mbbill/undotree',
+      cmd = 'UndotreeToggle',
+      config = function()
+        vim.g.undotree_TreeNodeShape = '◉' -- Alternative: '◦'
+        vim.g.undotree_SetFocusWhenToggle = 1
+      end,
+    },
+    {
+      'vimwiki/vimwiki',
+      keys = { '<leader>ww', '<leader>wt', '<leader>wi' },
+      event = { 'BufEnter *.wiki' },
+      setup = function()
+        require('plugins.vimwiki').setup()
+      end,
+      config = function()
+        require('plugins.vimwiki').config()
+      end
+    }
   }
   -- }}}
 
   -- Operators {{{
   use {
+    {
+      'phaazon/hop.nvim',
+      keys = { { 'n', 's' }, { 'o', 'f' }, { 'x', 'f' }, { 'o', 'F' }, { 'x', 'F' } },
+      config = function()
+        local hop = require 'hop'
+        -- remove h,j,k,l from hops list of keys
+        hop.setup { keys = 'etovxqpdygfbzcisuran' }
+        map('n', 's', hop.hint_char1)
+        map({ 'o', 'x' }, 'F', function()
+          hop.hint_char1 { direction = require('hop.hint').HintDirection.BEFORE_CURSOR }
+        end)
+        map({ 'o', 'x' }, 'f', function()
+          hop.hint_char1 { direction = require('hop.hint').HintDirection.AFTER_CURSOR }
+        end)
+      end,
+    },
     {'kana/vim-operator-user'},
     {
       'kana/vim-operator-replace',
@@ -481,6 +779,14 @@ return packer.startup(function()
         map('x', 'A', '<Plug>(niceblock-A)', { noremap = false })
       end
     }
+  }
+  -- }}}
+
+  -- Themes {{{
+  use {
+    {'NTBBloodbath/doom-one.nvim'},
+    {'marko-cerovac/material.nvim'},
+    {'projekt0n/github-nvim-theme'},
   }
   -- }}}
 
