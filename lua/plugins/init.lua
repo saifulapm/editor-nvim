@@ -186,7 +186,15 @@ return packer.startup(function()
     {
       'mattn/emmet-vim',
       event = 'InsertEnter',
-      ft = { 'html', 'css', 'javascript', 'javascriptreact', 'vue', 'typescript', 'typescriptreact' },
+      ft = {
+        'html',
+        'css',
+        'javascript',
+        'javascriptreact',
+        'vue',
+        'typescript',
+        'typescriptreact',
+      },
       config = function()
         vim.g.user_emmet_complete_tag = 0
         vim.g.user_emmet_install_global = 0
@@ -601,8 +609,8 @@ return packer.startup(function()
       'haya14busa/vim-asterisk',
       event = 'BufReadPre',
       config = function()
-        global.map('n', '*', '<Plug>(asterisk-*)', { noremap = false })
-        global.map('n', '#', '<Plug>(asterisk-#)', { noremap = false })
+        global.map({ 'n', 'v' }, '*', '<Plug>(asterisk-*)', { noremap = false })
+        global.map({ 'n', 'v' }, '#', '<Plug>(asterisk-#)', { noremap = false })
       end,
     },
     {

@@ -13,6 +13,14 @@ api.nvim_exec(
   ''
 )
 
+augroup('DisableComment', {
+  {
+    events = 'FileType',
+    targets = { '*' },
+    command = 'setlocal formatoptions-=c formatoptions-=r formatoptions-=o',
+  },
+})
+
 augroup('UpdateVim', {
   {
     events = 'BufWritePost',
@@ -50,17 +58,20 @@ augroup('UpdateVim', {
   },
 })
 
-augroup('VimrcIncSearchHighlight', {
+augroup('ClearSearchHL', {
   {
     -- automatically clear search highlight once leaving the commandline
     events = { 'CmdlineEnter' },
     targets = { '[/\\?]' },
-    command = ':set hlsearch  | redrawstatus',
+    command = ':set hlsearch',
   },
   {
     events = { 'CmdlineLeave' },
     targets = { '[/\\?]' },
-    command = ':set nohlsearch | redrawstatus',
+    command = function()
+      vim.cmd 'set nohlsearch'
+      require('utils.hlsearch').searched()
+    end,
   },
 })
 

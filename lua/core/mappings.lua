@@ -11,8 +11,6 @@ map({ 'n', 'x', 'o' }, '<Tab>', '%', { noremap = false })
 map({ 'n', 'x', 'o' }, 'H', '^')
 map({ 'n', 'x', 'o' }, 'L', '$')
 map('n', '<CR>', ':', { silent = false })
-map('n', 'n', 'nzz')
-map('n', 'N', 'Nzz')
 map('', 'j', 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
 map('', 'k', 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 map('', '<Down>', 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
@@ -23,6 +21,10 @@ map('n', '<C-a>', ':%y+ <CR>') -- copy whole file content
 map('n', '<S-t>', ':enew <CR>') -- new buffer
 map('n', '<C-t>b', ':tabnew <CR>') -- new tabs
 map('n', '<C-s>', ':w <CR>')
+
+-- IncSearch
+map('n', 'n', ':lua require("utils.hlsearch").feedkey("n")<CR>')
+map('n', 'N', ':lua require("utils.hlsearch").feedkey("N")<CR>')
 
 -- Insert Mode Mapping
 map('i', '<C-p>', '<Esc>pa')
@@ -238,6 +240,31 @@ map('n', '<leader>li', function()
 end)
 
 command { 'Todo', [[noautocmd silent! grep! 'TODO:\|FIXME:\|BUG:\|HACK:' | copen]] }
+
+----------------------------------------------------------------------------------
+-- Grep Operator
+----------------------------------------------------------------------------------
+function global.grep_operator(type)
+  local saved_unnamed_register = fn.getreg '@@'
+  if type:match 'v' then
+    vim.cmd [[normal! `<v`>y]]
+  elseif type:match 'char' then
+    vim.cmd [[normal! `[v`]y']]
+  else
+    return
+  end
+  -- Use Winnr to check if the cursor has moved it if has restore it
+  local winnr = fn.winnr()
+  vim.cmd [[silent execute 'grep! ' . shellescape(@@) . ' .']]
+  fn.setreg('@@', saved_unnamed_register)
+  if fn.winnr() ~= winnr then
+    vim.cmd [[wincmd p]]
+  end
+end
+
+-- http://travisjeffery.com/b/2011/10/m-x-occur-for-vim/
+map('n', '<leader>g', [[:silent! set operatorfunc=v:lua.global.grep_operator<cr>g@]])
+map('n', '<leader>g', [[:call v:lua.global.grep_operator(visualmode())<cr>]])
 
 -- Plugins Mapping
 -- Add Packer commands because we are not loading it at startup
