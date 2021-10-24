@@ -28,8 +28,8 @@ map('n', '<C-s>', ':w <CR>')
 map('i', '<C-p>', '<Esc>pa')
 map('i', '<C-b>', '<Left>')
 map('i', '<C-f>', '<Right>')
-map('i', '<C-k>', '<Esc>O')
-map('i', '<C-j>', '<Esc>o')
+map('i', '<C-k>', '<Up>')
+map('i', '<C-j>', '<Down>')
 map('i', '<C-a>', '<ESC>^i')
 map('i', '<C-l>', '<End>')
 map('i', '<C-w>', '<C-[>diwa')
@@ -58,8 +58,23 @@ endfunction
 
 map('x', '@', ':<C-u>call ExecuteMacroOverVisualRange()<CR>', { silent = false })
 
+-- search visual selection
+map('v', '//', [[y/<C-R>"<CR>]])
+
 -- Credit: Justinmk
 map('n', 'g>', [[<cmd>set nomore<bar>40messages<bar>set more<CR>]])
+-- Refocus folds
+map('n', '<localleader>z', [[zMzvzz]])
+-- Make zO recursively open whatever top level fold we're in, no matter where the
+-- cursor happens to be.
+map('n', 'zO', [[zCzO]])
+
+-- Add Empty space above and below
+map('n', '[<space>', [[<cmd>put! =repeat(nr2char(10), v:count1)<cr>'[]])
+map('n', ']<space>', [[<cmd>put =repeat(nr2char(10), v:count1)<cr>]])
+
+map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
+map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
 
 -- Buffer
 map('n', '<leader>on', ':lua require("utils").buf_only()<CR>')
