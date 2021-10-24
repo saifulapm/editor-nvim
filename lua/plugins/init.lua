@@ -271,8 +271,12 @@ return packer.startup(function()
   use {
     {
       'lewis6991/gitsigns.nvim',
+      opt = true,
       config = function()
         require 'plugins.gitsigns'
+      end,
+      setup = function()
+        require('utils').lazy 'gitsigns.nvim'
       end,
     },
     {
@@ -362,11 +366,14 @@ return packer.startup(function()
 
   -- TPOPE {{{
   use {
-    { 'tpope/vim-repeat' },
+    { 'tpope/vim-repeat', event = 'BufRead' },
     { 'tpope/vim-apathy', ft = { 'go', 'python', 'javascript', 'typescript' } },
-    { 'tpope/vim-surround' },
-    { 'tpope/vim-eunuch' },
-    { 'tpope/vim-sleuth' },
+    { 'tpope/vim-surround', event = 'BufRead' },
+    {
+      'tpope/vim-eunuch',
+      cmd = { 'Delete', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Wall', 'SudoWrite', 'SudoEdit' }
+    },
+    { 'tpope/vim-sleuth', event = 'BufReadPre' },
     {
       'tpope/vim-abolish',
       config = function()
@@ -375,9 +382,14 @@ return packer.startup(function()
         map('n', '<localleader>]', ':%S/<C-r><C-w>//c<left><left>', opts)
         map('n', '<localleader>[', [["zy:%S/<C-r><C-o>"//c<left><left>]], opts)
       end,
+      setup = function()
+        require('utils').lazy 'vim-abolish'
+      end,
+      opt = true,
     },
     {
       'tpope/vim-projectionist',
+      event = 'BufRead',
       config = function()
         require 'plugins.projectionist'
       end,
@@ -387,9 +399,9 @@ return packer.startup(function()
 
   -- Filetype Plugins {{{
   use {
-    { 'dart-lang/dart-vim-plugin' },
-    { 'plasticboy/vim-markdown' },
-    { 'fladson/vim-kitty' },
+    { 'dart-lang/dart-vim-plugin', ft='dart' },
+    { 'plasticboy/vim-markdown', ft='markdown' },
+    { 'fladson/vim-kitty', ft='kitty' },
     {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
@@ -458,6 +470,7 @@ return packer.startup(function()
     },
     {
       'chentau/marks.nvim',
+      event = 'BufRead',
       config = function()
         require('marks').setup {
           -- builtin_marks = { '.', '^' },
@@ -470,17 +483,22 @@ return packer.startup(function()
     },
     {
       'arecarn/vim-fold-cycle',
+      event = 'BufRead',
       config = function()
         vim.g.fold_cycle_default_mapping = 0
         map('n', '<BS>', '<Plug>(fold-cycle-close)', { noremap = false })
       end,
     },
-    { 'AndrewRadev/splitjoin.vim' },
+    { 'AndrewRadev/splitjoin.vim', keys = {'gS', 'gJ'} },
     {
       'hrsh7th/vim-eft',
       config = function()
         vim.g.eft_ignorecase = true
       end,
+      setup = function()
+        require('utils').lazy 'vim-eft'
+      end,
+      opt = true,
     },
     {
       'karb94/neoscroll.nvim',
@@ -518,7 +536,10 @@ return packer.startup(function()
     },
     {
       'folke/todo-comments.nvim',
-      after = 'plenary.nvim',
+      setup = function()
+        require('utils').lazy 'todo-comments.nvim'
+      end,
+      opt = true,
       config = function()
         require('todo-comments').setup {
           highlight = {
@@ -542,6 +563,10 @@ return packer.startup(function()
       config = function()
         map('n', 'S', '<plug>(SubversiveSubstitute)', { noremap = false })
       end,
+      setup = function()
+        require('utils').lazy 'vim-subversive'
+      end,
+      opt = true,
     },
     {
       'tommcdo/vim-exchange',
@@ -550,6 +575,10 @@ return packer.startup(function()
         map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', { noremap = false })
         map('n', 'Xc', '<Plug>(ExchangeClear)', { noremap = false })
       end,
+      setup = function()
+        require('utils').lazy 'vim-exchange'
+      end,
+      opt = true,
     },
     {
       'christoomey/vim-tmux-navigator',
@@ -564,6 +593,10 @@ return packer.startup(function()
         vim.g.tmux_navigator_preserve_zoom = 1
         vim.g.tmux_navigator_save_on_switch = 2
       end,
+      setup = function()
+        require('utils').lazy 'vim-tmux-navigator'
+      end,
+      opt = true,
     },
     {
       'haya14busa/vim-asterisk',
@@ -633,7 +666,13 @@ return packer.startup(function()
         }
       end,
     },
-    { 'gpanders/editorconfig.nvim' },
+    {
+      'gpanders/editorconfig.nvim',
+      setup = function()
+        require('utils').lazy 'editorconfig.nvim'
+      end,
+      opt = true,
+    },
     {
       'monaqa/dial.nvim',
       keys = { { 'n', '-' }, { 'n', '+' }, { 'v', '-' }, { 'v', '+' } },
@@ -650,6 +689,13 @@ return packer.startup(function()
         map({ 'n', 'v' }, '-', '<Plug>(dial-decrement)', { noremap = false })
       end,
     },
+    {
+      'andymass/vim-matchup',
+      opt = true,
+      setup = function()
+         require("utils").lazy "vim-matchup"
+      end,
+    }
   }
   -- }}}
 
@@ -662,6 +708,10 @@ return packer.startup(function()
     },
     {
       'akinsho/toggleterm.nvim',
+      opt = true,
+      setup = function()
+        require('utils').lazy 'toggleterm.nvim'
+      end,
       config = function()
         require('toggleterm').setup {
           open_mapping = [[<c-\>]],

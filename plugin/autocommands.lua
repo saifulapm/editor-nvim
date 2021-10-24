@@ -24,9 +24,7 @@ augroup('UpdateVim', {
     },
     modifiers = { '++nested' },
     command = function()
-      local ok, msg = pcall(vim.cmd, 'source $MYVIMRC | redraw | silent doautocmd ColorScheme')
-      msg = ok and 'sourced ' .. vim.fn.fnamemodify(vim.env.MYVIMRC, ':t') or msg
-      vim.notify(msg)
+      vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
     end,
   },
   {
@@ -36,7 +34,7 @@ augroup('UpdateVim', {
     command = function()
       require 'plugins'
       require('packer').compile()
-      vim.cmd 'source ~/.config/nvim/plugin/packer_compiled.lua | redraw | silent doautocmd ColorScheme'
+      vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
     end,
   },
   {
