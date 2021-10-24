@@ -2,10 +2,12 @@ local M = {}
 
 function M.setup()
   local fn = vim.fn
-  local has_icloud = fn.isdirectory(fn.expand '$HOME/Library/Mobile Documents/com~apple~CloudDocs') > 0
+  local has_icloud = fn.isdirectory(fn.expand '$HOME/Library/Mobile Documents/com~apple~CloudDocs')
+    > 0
   local home = vim.env.HOME
 
-  vim.g.wiki_path = has_icloud and home .. '/Library/Mobile Documents/com~apple~CloudDocs/wiki' or home .. '/wiki'
+  vim.g.wiki_path = has_icloud and home .. '/Library/Mobile Documents/com~apple~CloudDocs/wiki'
+    or home .. '/wiki'
 
   vim.g.wiki = {
     name = 'knowledge base',
@@ -17,7 +19,9 @@ function M.setup()
     auto_tags = 1,
   }
 
-  vim.g.learnings_wiki_path = has_icloud and home .. '/Library/Mobile Documents/com~apple~CloudDocs/learnings' or home .. '/learnings'
+  vim.g.learnings_wiki_path = has_icloud
+      and home .. '/Library/Mobile Documents/com~apple~CloudDocs/learnings'
+    or home .. '/learnings'
   vim.g.learnings_wiki = {
     name = 'Learnings',
     path = vim.g.learnings_wiki_path,

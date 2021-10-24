@@ -5,42 +5,42 @@ local fmt = string.format
 local map = global.map
 
 -- Basic Mapping
-map("n", "\\", ",")
-map("n", "<Esc>", ":nohl<CR>")
-map({"n", "x", "o"}, "<Tab>", "%", { noremap = false })
-map({"n", "x", "o"}, "H", "^")
-map({"n", "x", "o"}, "L", "$")
-map('n', "<CR>", ":", { silent = false })
-map("n", "n", "nzz")
-map("n", "N", "Nzz")
-map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
-map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
-map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+map('n', '\\', ',')
+map('n', '<Esc>', ':nohl<CR>')
+map({ 'n', 'x', 'o' }, '<Tab>', '%', { noremap = false })
+map({ 'n', 'x', 'o' }, 'H', '^')
+map({ 'n', 'x', 'o' }, 'L', '$')
+map('n', '<CR>', ':', { silent = false })
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
+map('', 'j', 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map('', 'k', 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+map('', '<Down>', 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map('', '<Up>', 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
 -- Insert Mode Mapping
-map("i", "<C-p>", "<Esc>pa")
-map("i", "<C-b>", "<Left>")
-map("i", "<C-f>", "<Right>")
-map("i", "<C-k>", "<Esc>O")
-map("i", "<C-j>", "<Esc>o")
-map("i", "<C-a>", "<ESC>^i")
-map("i", "<C-l>", "<End>")
-map("i", "<C-w>", "<C-[>diwa")
-map("i", "<C-h>", "<BS>")
-map("i", "<C-d>", "<Del>")
-map("i", "<C-u>", "<C-G>u<C-U>")
-map("i", "<C-s>", "<Esc>:w<CR>")
-map("i", "<C-q>", "<Esc>:wq<CR>")
+map('i', '<C-p>', '<Esc>pa')
+map('i', '<C-b>', '<Left>')
+map('i', '<C-f>', '<Right>')
+map('i', '<C-k>', '<Esc>O')
+map('i', '<C-j>', '<Esc>o')
+map('i', '<C-a>', '<ESC>^i')
+map('i', '<C-l>', '<End>')
+map('i', '<C-w>', '<C-[>diwa')
+map('i', '<C-h>', '<BS>')
+map('i', '<C-d>', '<Del>')
+map('i', '<C-u>', '<C-G>u<C-U>')
+map('i', '<C-s>', '<Esc>:w<CR>')
+map('i', '<C-q>', '<Esc>:wq<CR>')
 
 -- Commandline Mapping
-map("c", "<C-b>", "<Left>")
-map("c", "<C-f>", "<Right>")
-map("c", "<C-a>", "<Home>")
-map("c", "<C-e>", "<End>")
-map("c", "<C-d>", "<Del>")
-map("c", "<C-h>", "<BS>")
-map("c", "<C-t>", [[<C-R>=expand("%:p:h") . "/" <CR>]])
+map('c', '<C-b>', '<Left>')
+map('c', '<C-f>', '<Right>')
+map('c', '<C-a>', '<Home>')
+map('c', '<C-e>', '<End>')
+map('c', '<C-d>', '<Del>')
+map('c', '<C-h>', '<BS>')
+map('c', '<C-t>', [[<C-R>=expand("%:p:h") . "/" <CR>]])
 
 -- MACROS
 vim.cmd [[
@@ -54,7 +54,7 @@ map('x', '@', ':<C-u>call ExecuteMacroOverVisualRange()<CR>', { silent = false }
 
 -- Buffer
 map('n', '<leader>on', ':lua require("utils").buf_only()')
-map("n", "<Leader><Leader>", "<C-^>")
+map('n', '<Leader><Leader>', '<C-^>')
 map('n', '<leader>x', ':lua require("utils").close_buffer()')
 
 -- Windows
@@ -97,7 +97,12 @@ map('x', 'ie', [[gg0oG$]])
 map('o', 'ie', [[<cmd>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>]])
 
 -- Zero should go to the first non-blank character
-map({'n','x','o'}, '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'", { expr = true })
+map(
+  { 'n', 'x', 'o' },
+  '0',
+  "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+  { expr = true }
+)
 -- when going to the end of the line in visual mode ignore whitespace characters
 map('v', '$', 'g_')
 
@@ -123,8 +128,8 @@ map('n', '<leader>}', [[ciw{<c-r>"}<esc>]])
 map('n', 'Q', '@q')
 
 -- Multiple Cursor Replacement
-map({'n', 'v'}, 'cn', '*``cgn')
-map({'n', 'v'}, 'cN', '*``cgN')
+map({ 'n', 'v' }, 'cn', '*``cgn')
+map({ 'n', 'v' }, 'cN', '*``cgN')
 
 map('c', 'w!!', [[w !sudo tee % >/dev/null]])
 
@@ -152,7 +157,7 @@ map('n', '<leader>g', [[:silent! set operatorfunc=v:lua.global.grep_operator<cr>
 map('x', '<leader>g', [[:call v:lua.global.grep_operator(visualmode())<cr>]])
 
 -- Toggle list
-local is_vim_list_open = function ()
+local is_vim_list_open = function()
   for _, win in ipairs(api.nvim_list_wins()) do
     local buf = api.nvim_win_get_buf(win)
     local location_list = fn.getloclist(0, { filewinid = 0 })

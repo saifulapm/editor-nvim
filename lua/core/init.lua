@@ -12,12 +12,12 @@ local reload_module = function(module_name, starts_with_only)
     end
   else
     matcher = function(pack)
-      return string.find(pack, "^" .. module_name)
+      return string.find(pack, '^' .. module_name)
     end
   end
 
   -- Handle impatient.nvim automatically.
----@diagnostic disable-next-line: undefined-field
+  ---@diagnostic disable-next-line: undefined-field
   local luacache = (_G.__luacache or {}).cache
 
   for pack, _ in pairs(package.loaded) do
@@ -34,8 +34,8 @@ end
 -- Reload Module Require
 -- @param module name
 _G.R = function(name)
-    reload_module(name)
-    return require(name)
+  reload_module(name)
+  return require(name)
 end
 
 function _G.P(...)
@@ -93,36 +93,36 @@ function global.has_map(lhs, mode)
   return vim.fn.maparg(lhs, mode) ~= ''
 end
 
-global.map = function(mode, keys, cmd, opt)
+function global.map(mode, keys, cmd, opt)
   local options = { noremap = true, silent = true }
   local buffer = nil
   if opt then
     buffer = opt.buffer
     opt.buffer = nil
-    options = vim.tbl_extend("force", options, opt)
+    options = vim.tbl_extend('force', options, opt)
   end
 
   local valid_modes = {
-    [""] = true,
-    ["n"] = true,
-    ["v"] = true,
-    ["s"] = true,
-    ["x"] = true,
-    ["o"] = true,
-    ["!"] = true,
-    ["i"] = true,
-    ["l"] = true,
-    ["c"] = true,
-    ["t"] = true,
+    [''] = true,
+    ['n'] = true,
+    ['v'] = true,
+    ['s'] = true,
+    ['x'] = true,
+    ['o'] = true,
+    ['!'] = true,
+    ['i'] = true,
+    ['l'] = true,
+    ['c'] = true,
+    ['t'] = true,
   }
 
   local function map_wrapper(mo, lhs, rhs, opts)
-    if type(lhs) == "table" then
+    if type(lhs) == 'table' then
       for _, key in ipairs(lhs) do
         map_wrapper(mo, key, rhs, opts)
       end
     else
-      if type(mo) == "table" then
+      if type(mo) == 'table' then
         for _, m in ipairs(mo) do
           map_wrapper(m, lhs, rhs, opts)
         end
@@ -137,8 +137,16 @@ global.map = function(mode, keys, cmd, opt)
           end
           return vim.api.nvim_set_keymap(mo, lhs, rhs, opts)
         else
-          mode, lhs, rhs = mode or "", lhs or "", rhs or ""
-          print("Cannot set mapping [ mode = '" .. mode .. "' | key = '" .. lhs .. "' | cmd = '" .. rhs .. "' ]")
+          mode, lhs, rhs = mode or '', lhs or '', rhs or ''
+          print(
+            "Cannot set mapping [ mode = '"
+              .. mode
+              .. "' | key = '"
+              .. lhs
+              .. "' | cmd = '"
+              .. rhs
+              .. "' ]"
+          )
         end
       end
     end

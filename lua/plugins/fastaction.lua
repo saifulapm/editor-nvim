@@ -20,4 +20,3 @@ fastaction.setup {
 }
 global.map('n', '<leader>ca', "<esc><Cmd>lua require('lsp-fastaction').code_action()<CR>")
 global.map('x', '<leader>ca', "<esc><Cmd>lua require('lsp-fastaction').range_code_action()<CR>")
-

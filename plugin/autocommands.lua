@@ -16,7 +16,12 @@ api.nvim_exec(
 augroup('UpdateVim', {
   {
     events = 'BufWritePost',
-    targets = { '~/.config/nvim/lua/core/*.lua', '~/.config/nvim/lua/colors/*.lua', '~/.config/nvim/lua/utils/*.lua', '$MYVIMRC' },
+    targets = {
+      '~/.config/nvim/lua/core/*.lua',
+      '~/.config/nvim/lua/colors/*.lua',
+      '~/.config/nvim/lua/utils/*.lua',
+      '$MYVIMRC',
+    },
     modifiers = { '++nested' },
     command = function()
       local ok, msg = pcall(vim.cmd, 'source $MYVIMRC | redraw | silent doautocmd ColorScheme')
@@ -29,9 +34,9 @@ augroup('UpdateVim', {
     targets = { '~/.config/nvim/lua/plugins/*.lua' },
     modifiers = { '++nested' },
     command = function()
-      require('plugins')
+      require 'plugins'
       require('packer').compile()
-      vim.cmd('source ~/.config/nvim/plugin/packer_compiled.lua | redraw | silent doautocmd ColorScheme')
+      vim.cmd 'source ~/.config/nvim/plugin/packer_compiled.lua | redraw | silent doautocmd ColorScheme'
     end,
   },
   {
@@ -243,7 +248,7 @@ augroup('WindowBehaviours', {
   },
 })
 
-local empty = function (item)
+local empty = function(item)
   if not item then
     return true
   end

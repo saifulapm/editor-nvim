@@ -1,37 +1,39 @@
-local sumneko = require("plugins.lsp.sumneko")
-local null_ls = require("plugins.lsp.null-ls")
-local tsserver = require("plugins.lsp.tsserver")
-local intelephense = require("plugins.lsp.tsserver")
+local sumneko = require 'plugins.lsp.sumneko'
+local null_ls = require 'plugins.lsp.null-ls'
+local tsserver = require 'plugins.lsp.tsserver'
+local intelephense = require 'plugins.lsp.tsserver'
 local lsp = vim.lsp
 
 local function lspSymbol(name, icon)
-   vim.fn.sign_define("LspDiagnosticsSign" .. name, { text = icon, numhl = "LspDiagnosticsDefault" .. name })
+  vim.fn.sign_define(
+    'LspDiagnosticsSign' .. name,
+    { text = icon, numhl = 'LspDiagnosticsDefault' .. name }
+  )
 end
 
-lspSymbol("Error", "✗")
-lspSymbol("Information", "")
-lspSymbol("Hint", "")
-lspSymbol("Warning", "")
+lspSymbol('Error', '✗')
+lspSymbol('Information', '')
+lspSymbol('Hint', '')
+lspSymbol('Warning', '')
 
-lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      prefix = "",
-      spacing = 0,
-    },
-    signs = true,
-    underline = true,
-    update_in_insert = false,
+lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    prefix = '',
+    spacing = 0,
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
 })
 
-local popup_opts = { border = "single", focusable = false }
+local popup_opts = { border = 'single', focusable = false }
 
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, popup_opts)
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, popup_opts)
+lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, popup_opts)
+lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, popup_opts)
 
 local on_attach = function(client, bufnr)
-
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   local opts = { noremap = true, silent = true, buffer = bufnr }
   local map = global.map
@@ -81,14 +83,14 @@ local on_attach = function(client, bufnr)
   end
 
   if client.resolved_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
   end
 
-  require("illuminate").on_attach(client)
+  require('illuminate').on_attach(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 tsserver.setup(on_attach, capabilities)
 intelephense.setup(on_attach, capabilities)

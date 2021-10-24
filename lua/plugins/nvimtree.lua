@@ -33,7 +33,7 @@ require('nvim-tree').setup {
         { key = 'cd', cb = action 'cd' },
         { key = 'v', cb = action 'vsplit' },
         { key = 's', cb = action 'split' },
-      }
+      },
     },
   },
   diagnostics = {
@@ -43,7 +43,7 @@ require('nvim-tree').setup {
       warning = '',
       info = '',
       hint = '',
-    }
+    },
   },
   disable_netrw = true,
   hijack_netrw = true,

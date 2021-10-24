@@ -2,7 +2,7 @@ local opt = vim.opt
 local g = vim.g
 
 opt.title = true
-opt.clipboard = "unnamedplus"
+opt.clipboard = 'unnamedplus'
 opt.cmdheight = 1
 opt.cul = true -- cursor line
 
@@ -12,12 +12,12 @@ opt.shiftwidth = 2
 opt.smartindent = true
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
-opt.fillchars = { eob = " " }
+opt.fillchars = { eob = ' ' }
 
 opt.hidden = true
 opt.ignorecase = true
 opt.smartcase = true
-opt.mouse = "a"
+opt.mouse = 'a'
 
 -- Numbers
 opt.number = true
@@ -26,9 +26,9 @@ opt.relativenumber = false
 opt.ruler = false
 
 -- disable nvim intro
-opt.shortmess:append "sI"
+opt.shortmess:append 'sI'
 
-opt.signcolumn = "yes:2"
+opt.signcolumn = 'yes:2'
 opt.splitbelow = true
 opt.splitright = true
 opt.tabstop = 2
@@ -42,9 +42,9 @@ opt.updatetime = 250
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
+opt.whichwrap:append '<>[]hl'
 
-g.mapleader = " "
+g.mapleader = ' '
 g.maplocalleader = ','
 
 g.python_host_prog = '/usr/bin/python'
@@ -52,26 +52,26 @@ g.python3_host_prog = '/usr/local/bin/python3'
 
 -- disable some builtin vim plugins
 local disabled_built_ins = {
-   "2html_plugin",
-   "getscript",
-   "getscriptPlugin",
-   "gzip",
-   "logipat",
-   "netrw",
-   "netrwPlugin",
-   "netrwSettings",
-   "netrwFileHandlers",
-   "matchit",
-   "tar",
-   "tarPlugin",
-   "rrhelper",
-   "spellfile_plugin",
-   "vimball",
-   "vimballPlugin",
-   "zip",
-   "zipPlugin",
+  '2html_plugin',
+  'getscript',
+  'getscriptPlugin',
+  'gzip',
+  'logipat',
+  'netrw',
+  'netrwPlugin',
+  'netrwSettings',
+  'netrwFileHandlers',
+  'matchit',
+  'tar',
+  'tarPlugin',
+  'rrhelper',
+  'spellfile_plugin',
+  'vimball',
+  'vimballPlugin',
+  'zip',
+  'zipPlugin',
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-   g["loaded_" .. plugin] = 1
+  g['loaded_' .. plugin] = 1
 end

@@ -7,7 +7,7 @@ M.get = function()
     theme = vim.g.colors_name
   end
 
-  return require("colors." .. theme)
+  return require('colors.' .. theme)
 end
 
 return M

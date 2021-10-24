@@ -25,14 +25,14 @@ local function toggle_trailing(mode)
   end
 end
 
-vim.cmd('hi ExtraWhitespace guifg=red')
+vim.cmd 'hi ExtraWhitespace guifg=red'
 
 global.augroup('WhitespaceMatch', {
   {
     events = { 'ColorScheme' },
     targets = { '*' },
     command = function()
-      vim.cmd('hi ExtraWhitespace guifg=red')
+      vim.cmd 'hi ExtraWhitespace guifg=red'
     end,
   },
   {

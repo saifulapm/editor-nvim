@@ -1,7 +1,7 @@
-local present, packer = pcall(require, "utils.plugins")
+local present, packer = pcall(require, 'utils.plugins')
 
 if not present then
-   return false
+  return false
 end
 
 local use = packer.use
@@ -12,14 +12,13 @@ local map = global.map
 vim.cmd 'packadd! cfilter'
 
 return packer.startup(function()
-
   use_rocks { 'penlight' }
 
   -- Core Plugin {{{
   use {
-    {'wbthomason/packer.nvim', opt=true},
-    {'nvim-lua/plenary.nvim'},
-    {'lewis6991/impatient.nvim'},
+    { 'wbthomason/packer.nvim', opt = true },
+    { 'nvim-lua/plenary.nvim' },
+    { 'lewis6991/impatient.nvim' },
     {
       'nathom/filetype.nvim',
       config = function()
@@ -32,7 +31,7 @@ return packer.startup(function()
           },
         }
       end,
-    }
+    },
   }
   -- }}}
 
@@ -41,7 +40,7 @@ return packer.startup(function()
     {
       'neovim/nvim-lspconfig',
       config = function()
-        require "plugins.lsp"
+        require 'plugins.lsp'
       end,
     },
     { 'jose-elias-alvarez/null-ls.nvim' },
@@ -50,15 +49,19 @@ return packer.startup(function()
     {
       'RRethy/vim-illuminate',
       config = function()
-        map("n", "<A-n>", '<cmd> lua require"illuminate".next_reference{wrap=true}<CR>')
-        map("n", "<A-p>", '<cmd> lua require"illuminate".next_reference{reverse=true,wrap=true}<CR>')
+        map('n', '<A-n>', '<cmd> lua require"illuminate".next_reference{wrap=true}<CR>')
+        map(
+          'n',
+          '<A-p>',
+          '<cmd> lua require"illuminate".next_reference{reverse=true,wrap=true}<CR>'
+        )
       end,
     },
     {
       'windwp/lsp-fastaction.nvim',
       config = function()
-        require "plugins.fastaction"
-      end
+        require 'plugins.fastaction'
+      end,
     },
     {
       'ray-x/lsp_signature.nvim',
@@ -90,7 +93,7 @@ return packer.startup(function()
         end)
         trouble.setup { auto_close = true, auto_preview = false }
       end,
-    }
+    },
   }
   -- }}}
 
@@ -109,16 +112,16 @@ return packer.startup(function()
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       },
       config = function()
-        require "plugins.cmp"
-      end
+        require 'plugins.cmp'
+      end,
     },
     {
       'L3MON4D3/LuaSnip',
       event = 'InsertEnter',
       module = 'luasnip',
       config = function()
-        require "plugins.luasnip"
-      end
+        require 'plugins.luasnip'
+      end,
     },
     {
       'windwp/nvim-autopairs',
@@ -149,13 +152,13 @@ return packer.startup(function()
     {
       'mattn/emmet-vim',
       event = 'InsertEnter',
-      ft = {'html','css','javascript','javascriptreact','vue','typescript','typescriptreact'},
-      config = function ()
+      ft = { 'html', 'css', 'javascript', 'javascriptreact', 'vue', 'typescript', 'typescriptreact' },
+      config = function()
         vim.g.user_emmet_complete_tag = 0
         vim.g.user_emmet_install_global = 0
         vim.g.user_emmet_install_command = 0
         vim.g.user_emmet_mode = 'i'
-      end
+      end,
     },
     {
       'nvim-telescope/telescope.nvim',
@@ -163,7 +166,7 @@ return packer.startup(function()
       keys = { '<c-p>', '<leader>fo', '<leader>ff', '<leader>fs' },
       module_pattern = 'telescope.*',
       config = function()
-        require "plugins.telescope"
+        require 'plugins.telescope'
       end,
       requires = {
         {
@@ -207,15 +210,19 @@ return packer.startup(function()
       branch = '0.5-compat',
       requires = {
         { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
-        { 'nvim-treesitter/nvim-treesitter-textobjects', branch = '0.5-compat', after = 'nvim-treesitter' },
+        {
+          'nvim-treesitter/nvim-treesitter-textobjects',
+          branch = '0.5-compat',
+          after = 'nvim-treesitter',
+        },
       },
       config = function()
-        require "plugins.treesitter"
-      end
+        require 'plugins.treesitter'
+      end,
     },
     {
       'David-Kunz/treesitter-unit',
-      after = "nvim-treesitter",
+      after = 'nvim-treesitter',
       config = function()
         map('x', 'iu', ':lua require"treesitter-unit".select()<CR>')
         map('x', 'au', ':lua require"treesitter-unit".select(true)<CR>')
@@ -225,7 +232,7 @@ return packer.startup(function()
     },
     {
       'lewis6991/spellsitter.nvim',
-      after = "nvim-treesitter",
+      after = 'nvim-treesitter',
       config = function()
         require('spellsitter').setup {
           captures = { 'comment', 'string' },
@@ -241,21 +248,21 @@ return packer.startup(function()
     {
       'famiu/feline.nvim',
       config = function()
-        require "plugins.feline"
-      end
+        require 'plugins.feline'
+      end,
     },
     {
       'akinsho/bufferline.nvim',
       config = function()
-        require "plugins.bufferline"
-      end
+        require 'plugins.bufferline'
+      end,
     },
     {
       'kyazdani42/nvim-tree.lua',
       requires = 'nvim-web-devicons',
-      config = function ()
-       require "plugins.nvim-tree"
-      end
+      config = function()
+        require 'plugins.nvim-tree'
+      end,
     },
   }
   -- }}}
@@ -265,13 +272,13 @@ return packer.startup(function()
     {
       'lewis6991/gitsigns.nvim',
       config = function()
-        require "plugins.gitsigns"
-      end
+        require 'plugins.gitsigns'
+      end,
     },
     {
       'ruifm/gitlinker.nvim',
       keys = { '<localleader>gu', '<localleader>go' },
-      config = function ()
+      config = function()
         local linker = require 'gitlinker'
         linker.setup { mappings = '<localleader>gu' }
         map('n', '<localleader>go', function()
@@ -308,7 +315,7 @@ return packer.startup(function()
         end)
         map('n', '<localleader>gl', neogit.popups.pull.create)
         map('n', '<localleader>gp', neogit.popups.push.create)
-      end
+      end,
     },
     {
       'sindrets/diffview.nvim',
@@ -333,14 +340,14 @@ return packer.startup(function()
       config = function()
         require('octo').setup()
       end,
-    }
+    },
   }
   --  }}}
 
   -- Devs && Profiling {{{
   use {
-    {'nanotee/luv-vimdocs'},
-    {'milisims/nvim-luaref'},
+    { 'nanotee/luv-vimdocs' },
+    { 'milisims/nvim-luaref' },
     {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
@@ -349,17 +356,17 @@ return packer.startup(function()
         vim.g.startuptime_exe_args = { '+let g:auto_session_enabled = 0' }
       end,
     },
-    { 'rafcamlet/nvim-luapad', cmd = 'Luapad' }
+    { 'rafcamlet/nvim-luapad', cmd = 'Luapad' },
   }
   -- }}}
 
   -- TPOPE {{{
   use {
-    {'tpope/vim-repeat'},
-    {'tpope/vim-apathy', ft = { 'go', 'python', 'javascript', 'typescript' }},
-    {'tpope/vim-surround'},
-    {'tpope/vim-eunuch'},
-    {'tpope/vim-sleuth'},
+    { 'tpope/vim-repeat' },
+    { 'tpope/vim-apathy', ft = { 'go', 'python', 'javascript', 'typescript' } },
+    { 'tpope/vim-surround' },
+    { 'tpope/vim-eunuch' },
+    { 'tpope/vim-sleuth' },
     {
       'tpope/vim-abolish',
       config = function()
@@ -371,18 +378,18 @@ return packer.startup(function()
     },
     {
       'tpope/vim-projectionist',
-      config = function ()
-        require "plugins.projectionist"
-      end
-    }
+      config = function()
+        require 'plugins.projectionist'
+      end,
+    },
   }
   -- }}}
 
   -- Filetype Plugins {{{
   use {
-    {'dart-lang/dart-vim-plugin'},
-    {'plasticboy/vim-markdown'},
-    {'fladson/vim-kitty'},
+    { 'dart-lang/dart-vim-plugin' },
+    { 'plasticboy/vim-markdown' },
+    { 'fladson/vim-kitty' },
     {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
@@ -397,20 +404,20 @@ return packer.startup(function()
 
   -- QuickFix {{{
   use {
-    {'kevinhwang91/nvim-bqf', ft = 'qf' },
+    { 'kevinhwang91/nvim-bqf', ft = 'qf' },
     {
       'https://gitlab.com/yorickpeterse/nvim-pqf',
       ft = 'qf',
-      config = function ()
-        require('pqf').setup({
+      config = function()
+        require('pqf').setup {
           signs = {
             error = '✗',
             warning = '',
             info = '',
-            hint = ''
-          }
-        })
-      end
+            hint = '',
+          },
+        }
+      end,
     },
   }
   -- }}}
@@ -423,7 +430,7 @@ return packer.startup(function()
       config = function()
         require('neoclip').setup {
           enable_persistant_history = true,
-          db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3",
+          db_path = vim.fn.stdpath 'data' .. '/neoclip.sqlite3',
           keys = {
             i = { select = '<CR>', paste = '<c-p>', paste_behind = '<c-k>' },
             n = { select = '<CR>', paste = 'p', paste_behind = 'P' },
@@ -437,7 +444,7 @@ return packer.startup(function()
       config = function()
         require('hclipboard').start()
       end,
-    }
+    },
   }
   -- }}}
 
@@ -465,7 +472,7 @@ return packer.startup(function()
       'arecarn/vim-fold-cycle',
       config = function()
         vim.g.fold_cycle_default_mapping = 0
-        map('n', '<BS>', '<Plug>(fold-cycle-close)', {noremap=false})
+        map('n', '<BS>', '<Plug>(fold-cycle-close)', { noremap = false })
       end,
     },
     { 'AndrewRadev/splitjoin.vim' },
@@ -473,7 +480,7 @@ return packer.startup(function()
       'hrsh7th/vim-eft',
       config = function()
         vim.g.eft_ignorecase = true
-      end
+      end,
     },
     {
       'karb94/neoscroll.nvim',
@@ -484,14 +491,14 @@ return packer.startup(function()
           stop_eof = false,
           hide_cursor = true,
         }
-      end
+      end,
     },
     {
       'max397574/better-escape.nvim',
       event = 'InsertEnter',
       config = function()
         require('better_escape').setup()
-      end
+      end,
     },
     {
       'numToStr/Comment.nvim',
@@ -506,7 +513,7 @@ return packer.startup(function()
       rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
       requires = { 'romgrk/fzy-lua-native' },
       config = function()
-        vim.cmd('source ~/config/nvim/vimscript/wilder.vim')
+        vim.cmd 'source ~/config/nvim/vimscript/wilder.vim'
       end,
     },
     {
@@ -533,15 +540,15 @@ return packer.startup(function()
     {
       'svermeulen/vim-subversive',
       config = function()
-        map('n', 'S', '<plug>(SubversiveSubstitute)', {noremap=false})
+        map('n', 'S', '<plug>(SubversiveSubstitute)', { noremap = false })
       end,
     },
     {
       'tommcdo/vim-exchange',
       config = function()
         vim.g.exchange_no_mappings = 1
-        map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', {noremap=false})
-        map('n', 'Xc', '<Plug>(ExchangeClear)', {noremap=false})
+        map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', { noremap = false })
+        map('n', 'Xc', '<Plug>(ExchangeClear)', { noremap = false })
       end,
     },
     {
@@ -577,8 +584,8 @@ return packer.startup(function()
       'lukas-reineke/indent-blankline.nvim',
       event = 'BufRead',
       config = function()
-        require "plugins.blankline"
-      end
+        require 'plugins.blankline'
+      end,
     },
     {
       'rhysd/conflict-marker.vim',
@@ -589,28 +596,28 @@ return packer.startup(function()
         -- Include text after begin and end markers
         vim.g.conflict_marker_begin = '^<<<<<<< .*$'
         vim.g.conflict_marker_end = '^>>>>>>> .*$'
-      end
+      end,
     },
     {
       'norcalli/nvim-colorizer.lua',
-      ft = { 'html','css','sass','vim','typescript','typescriptreact'},
+      ft = { 'html', 'css', 'sass', 'vim', 'typescript', 'typescriptreact' },
       config = function()
-        require 'colorizer'.setup {
-          css = { rgb_fn = true; };
-          scss = { rgb_fn = true; };
-          sass = { rgb_fn = true; };
-          stylus = { rgb_fn = true; };
-          vim = { names = true; };
-          tmux = { names = false; };
-          'javascript';
-          'javascriptreact';
-          'typescript';
-          'typescriptreact';
+        require('colorizer').setup {
+          css = { rgb_fn = true },
+          scss = { rgb_fn = true },
+          sass = { rgb_fn = true },
+          stylus = { rgb_fn = true },
+          vim = { names = true },
+          tmux = { names = false },
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
           html = {
-            mode = 'foreground';
-          }
+            mode = 'foreground',
+          },
         }
-      end
+      end,
     },
     {
       'mg979/vim-visual-multi',
@@ -626,12 +633,12 @@ return packer.startup(function()
         }
       end,
     },
-    {'gpanders/editorconfig.nvim'},
+    { 'gpanders/editorconfig.nvim' },
     {
       'monaqa/dial.nvim',
       keys = { { 'n', '-' }, { 'n', '+' }, { 'v', '-' }, { 'v', '+' } },
       config = function()
-        local dial = require('dial')
+        local dial = require 'dial'
 
         dial.augends['custom#boolean'] = dial.common.enum_cyclic {
           name = 'boolean',
@@ -727,8 +734,8 @@ return packer.startup(function()
       end,
       config = function()
         require('plugins.vimwiki').config()
-      end
-    }
+      end,
+    },
   }
   -- }}}
 
@@ -750,12 +757,12 @@ return packer.startup(function()
         end)
       end,
     },
-    {'kana/vim-operator-user'},
+    { 'kana/vim-operator-user' },
     {
       'kana/vim-operator-replace',
-      keys = {{'x','p'}},
+      keys = { { 'x', 'p' } },
       config = function()
-        vim.api.nvim_set_keymap("x", "p", "<Plug>(operator-replace)",{silent =true})
+        vim.api.nvim_set_keymap('x', 'p', '<Plug>(operator-replace)', { silent = true })
       end,
     },
     {
@@ -769,25 +776,24 @@ return packer.startup(function()
         map('o', 'ix', '<Plug>(textobj-comment-i)', { noremap = false })
       end,
     },
-    {'rhysd/vim-operator-surround', event = 'BufRead'},
+    { 'rhysd/vim-operator-surround', event = 'BufRead' },
     {
       'kana/vim-niceblock',
       event = 'BufRead',
-      config = function ()
+      config = function()
         map('x', 'I', '<Plug>(niceblock-I)', { noremap = false })
         map('x', 'gI', '<Plug>(niceblock-gI)', { noremap = false })
         map('x', 'A', '<Plug>(niceblock-A)', { noremap = false })
-      end
-    }
+      end,
+    },
   }
   -- }}}
 
   -- Themes {{{
   use {
-    {'NTBBloodbath/doom-one.nvim'},
-    {'marko-cerovac/material.nvim'},
-    {'projekt0n/github-nvim-theme'},
+    { 'NTBBloodbath/doom-one.nvim' },
+    { 'marko-cerovac/material.nvim' },
+    { 'projekt0n/github-nvim-theme' },
   }
   -- }}}
-
 end)
