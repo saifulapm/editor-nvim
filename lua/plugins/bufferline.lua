@@ -1,4 +1,4 @@
-local colors = require('colors').get()
+local colors = require('colors').get 'onedark'
 
 local present, bufferline = pcall(require, 'bufferline')
 if not present then

@@ -6,7 +6,6 @@ end
 
 local use = packer.use
 local use_rocks = packer.use_rocks
-local map = global.map
 
 -- cfilter plugin allows filter down an existing quickfix list
 vim.cmd 'packadd! cfilter'
@@ -32,6 +31,39 @@ return packer.startup(function()
         }
       end,
     },
+    {
+      'NvChad/nvim-base16.lua',
+      config = function()
+        require('colors').init()
+      end,
+    },
+  }
+  -- }}}
+
+  -- UI Plugin {{{
+  use {
+    { 'kyazdani42/nvim-web-devicons' },
+    {
+      'famiu/feline.nvim',
+      after = 'nvim-base16.lua',
+      config = function()
+        require 'plugins.feline'
+      end,
+    },
+    {
+      'akinsho/bufferline.nvim',
+      after = 'nvim-base16.lua',
+      config = function()
+        require 'plugins.bufferline'
+      end,
+    },
+    {
+      'kyazdani42/nvim-tree.lua',
+      requires = 'nvim-web-devicons',
+      config = function()
+        require 'plugins.nvimtree'
+      end,
+    },
   }
   -- }}}
 
@@ -42,20 +74,22 @@ return packer.startup(function()
       config = function()
         require 'plugins.lsp'
       end,
-    },
-    { 'jose-elias-alvarez/null-ls.nvim' },
-    { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
-    { 'folke/lua-dev.nvim' },
-    {
-      'RRethy/vim-illuminate',
-      config = function()
-        map('n', '<A-n>', '<cmd> lua require"illuminate".next_reference{wrap=true}<CR>')
-        map(
-          'n',
-          '<A-p>',
-          '<cmd> lua require"illuminate".next_reference{reverse=true,wrap=true}<CR>'
-        )
-      end,
+      requires = {
+        { 'jose-elias-alvarez/null-ls.nvim' },
+        { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
+        { 'folke/lua-dev.nvim' },
+        {
+          'RRethy/vim-illuminate',
+          config = function()
+            global.map('n', '<A-n>', '<cmd> lua require"illuminate".next_reference{wrap=true}<CR>')
+            global.map(
+              'n',
+              '<A-p>',
+              '<cmd> lua require"illuminate".next_reference{reverse=true,wrap=true}<CR>'
+            )
+          end,
+        },
+      },
     },
     {
       'windwp/lsp-fastaction.nvim',
@@ -83,12 +117,12 @@ return packer.startup(function()
       requires = 'nvim-web-devicons',
       config = function()
         local trouble = require 'trouble'
-        map('n', '<leader>ld', '<cmd>TroubleToggle lsp_workspace_diagnostics<CR>')
-        map('n', '<leader>lr', '<cmd>TroubleToggle lsp_references<CR>')
-        map('n', ']t', function()
+        global.map('n', '<leader>ld', '<cmd>TroubleToggle lsp_workspace_diagnostics<CR>')
+        global.map('n', '<leader>lr', '<cmd>TroubleToggle lsp_references<CR>')
+        global.map('n', ']t', function()
           trouble.previous { skip_groups = true, jump = true }
         end)
-        map('n', '[t', function()
+        global.map('n', '[t', function()
           trouble.next { skip_groups = true, jump = true }
         end)
         trouble.setup { auto_close = true, auto_preview = false }
@@ -224,10 +258,10 @@ return packer.startup(function()
       'David-Kunz/treesitter-unit',
       after = 'nvim-treesitter',
       config = function()
-        map('x', 'iu', ':lua require"treesitter-unit".select()<CR>')
-        map('x', 'au', ':lua require"treesitter-unit".select(true)<CR>')
-        map('o', 'iu', '<Cmd>lua require"treesitter-unit".select()<CR>')
-        map('o', 'au', '<Cmd>lua require"treesitter-unit".select(true)<CR>')
+        global.map('x', 'iu', ':lua require"treesitter-unit".select()<CR>')
+        global.map('x', 'au', ':lua require"treesitter-unit".select(true)<CR>')
+        global.map('o', 'iu', '<Cmd>lua require"treesitter-unit".select()<CR>')
+        global.map('o', 'au', '<Cmd>lua require"treesitter-unit".select(true)<CR>')
       end,
     },
     {
@@ -237,31 +271,6 @@ return packer.startup(function()
         require('spellsitter').setup {
           captures = { 'comment', 'string' },
         }
-      end,
-    },
-  }
-  -- }}}
-
-  -- UI Plugin {{{
-  use {
-    { 'kyazdani42/nvim-web-devicons' },
-    {
-      'famiu/feline.nvim',
-      config = function()
-        require 'plugins.feline'
-      end,
-    },
-    {
-      'akinsho/bufferline.nvim',
-      config = function()
-        require 'plugins.bufferline'
-      end,
-    },
-    {
-      'kyazdani42/nvim-tree.lua',
-      requires = 'nvim-web-devicons',
-      config = function()
-        require 'plugins.nvim-tree'
       end,
     },
   }
@@ -285,7 +294,7 @@ return packer.startup(function()
       config = function()
         local linker = require 'gitlinker'
         linker.setup { mappings = '<localleader>gu' }
-        map('n', '<localleader>go', function()
+        global.map('n', '<localleader>go', function()
           linker.get_repo_url { action_callback = require('gitlinker.actions').open_in_browser }
         end)
       end,
@@ -311,14 +320,14 @@ return packer.startup(function()
             diffview = true,
           },
         }
-        map('n', '<localleader>gs', function()
+        global.map('n', '<localleader>gs', function()
           neogit.open()
         end)
-        map('n', '<localleader>gc', function()
+        global.map('n', '<localleader>gc', function()
           neogit.open { 'commit' }
         end)
-        map('n', '<localleader>gl', neogit.popups.pull.create)
-        map('n', '<localleader>gp', neogit.popups.push.create)
+        global.map('n', '<localleader>gl', neogit.popups.pull.create)
+        global.map('n', '<localleader>gp', neogit.popups.push.create)
       end,
     },
     {
@@ -332,17 +341,6 @@ return packer.startup(function()
             view = { q = '<Cmd>DiffviewClose<CR>' },
           },
         }
-      end,
-    },
-    {
-      'pwntester/octo.nvim',
-      cmd = 'Octo*',
-      setup = function()
-        map('n', '<localleader>op', '<cmd>Octo pr list<CR>')
-        map('n', '<localleader>ol', '<cmd>Octo issue list<CR>')
-      end,
-      config = function()
-        require('octo').setup()
       end,
     },
   }
@@ -371,16 +369,16 @@ return packer.startup(function()
     { 'tpope/vim-surround', event = 'BufRead' },
     {
       'tpope/vim-eunuch',
-      cmd = { 'Delete', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Wall', 'SudoWrite', 'SudoEdit' }
+      cmd = { 'Delete', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Wall', 'SudoWrite', 'SudoEdit' },
     },
     { 'tpope/vim-sleuth', event = 'BufReadPre' },
     {
       'tpope/vim-abolish',
       config = function()
         local opts = { silent = false }
-        map('n', '<localleader>[', ':S/<C-R><C-W>//<LEFT>', opts)
-        map('n', '<localleader>]', ':%S/<C-r><C-w>//c<left><left>', opts)
-        map('n', '<localleader>[', [["zy:%S/<C-r><C-o>"//c<left><left>]], opts)
+        global.map('n', '<localleader>[', ':S/<C-R><C-W>//<LEFT>', opts)
+        global.map('n', '<localleader>]', ':%S/<C-r><C-w>//c<left><left>', opts)
+        global.map('n', '<localleader>[', [["zy:%S/<C-r><C-o>"//c<left><left>]], opts)
       end,
       setup = function()
         require('utils').lazy 'vim-abolish'
@@ -399,9 +397,9 @@ return packer.startup(function()
 
   -- Filetype Plugins {{{
   use {
-    { 'dart-lang/dart-vim-plugin', ft='dart' },
-    { 'plasticboy/vim-markdown', ft='markdown' },
-    { 'fladson/vim-kitty', ft='kitty' },
+    { 'dart-lang/dart-vim-plugin', ft = 'dart' },
+    { 'plasticboy/vim-markdown', ft = 'markdown' },
+    { 'fladson/vim-kitty', ft = 'kitty' },
     {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
@@ -486,10 +484,10 @@ return packer.startup(function()
       event = 'BufRead',
       config = function()
         vim.g.fold_cycle_default_mapping = 0
-        map('n', '<BS>', '<Plug>(fold-cycle-close)', { noremap = false })
+        global.map('n', '<BS>', '<Plug>(fold-cycle-close)', { noremap = false })
       end,
     },
-    { 'AndrewRadev/splitjoin.vim', keys = {'gS', 'gJ'} },
+    { 'AndrewRadev/splitjoin.vim', keys = { 'gS', 'gJ' } },
     {
       'hrsh7th/vim-eft',
       config = function()
@@ -530,8 +528,9 @@ return packer.startup(function()
       event = { 'CursorHold', 'CmdlineEnter' },
       rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
       requires = { 'romgrk/fzy-lua-native' },
+      run = ':UpdateRemotePlugins',
       config = function()
-        vim.cmd 'source ~/config/nvim/vimscript/wilder.vim'
+        vim.cmd(string.format('source %s/%s', vim.fn.stdpath 'config', 'vimscript/wilder.vim'))
       end,
     },
     {
@@ -546,7 +545,7 @@ return packer.startup(function()
             exclude = { 'org', 'orgagenda', 'vimwiki', 'markdown' },
           },
         }
-        map('n', '<leader>lt', '<Cmd>TodoTrouble<CR>')
+        global.map('n', '<leader>lt', '<Cmd>TodoTrouble<CR>')
       end,
     },
     {
@@ -561,7 +560,7 @@ return packer.startup(function()
     {
       'svermeulen/vim-subversive',
       config = function()
-        map('n', 'S', '<plug>(SubversiveSubstitute)', { noremap = false })
+        global.map('n', 'S', '<plug>(SubversiveSubstitute)', { noremap = false })
       end,
       setup = function()
         require('utils').lazy 'vim-subversive'
@@ -572,8 +571,8 @@ return packer.startup(function()
       'tommcdo/vim-exchange',
       config = function()
         vim.g.exchange_no_mappings = 1
-        map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', { noremap = false })
-        map('n', 'Xc', '<Plug>(ExchangeClear)', { noremap = false })
+        global.map({ 'n', 'x' }, 'X', '<Plug>(Exchange)', { noremap = false })
+        global.map('n', 'Xc', '<Plug>(ExchangeClear)', { noremap = false })
       end,
       setup = function()
         require('utils').lazy 'vim-exchange'
@@ -584,10 +583,10 @@ return packer.startup(function()
       'christoomey/vim-tmux-navigator',
       config = function()
         vim.g.tmux_navigator_no_mappings = 1
-        map('n', '<C-H>', '<cmd>TmuxNavigateLeft<cr>')
-        map('n', '<C-J>', '<cmd>TmuxNavigateDown<cr>')
-        map('n', '<C-K>', '<cmd>TmuxNavigateUp<cr>')
-        map('n', '<C-L>', '<cmd>TmuxNavigateRight<cr>')
+        global.map('n', '<C-H>', '<cmd>TmuxNavigateLeft<cr>')
+        global.map('n', '<C-J>', '<cmd>TmuxNavigateDown<cr>')
+        global.map('n', '<C-K>', '<cmd>TmuxNavigateUp<cr>')
+        global.map('n', '<C-L>', '<cmd>TmuxNavigateRight<cr>')
         -- Disable tmux navigator when zooming the Vim pane
         vim.g.tmux_navigator_disable_when_zoomed = 1
         vim.g.tmux_navigator_preserve_zoom = 1
@@ -602,8 +601,8 @@ return packer.startup(function()
       'haya14busa/vim-asterisk',
       event = 'BufReadPre',
       config = function()
-        map('n', '*', '<Plug>(asterisk-*)', { noremap = false })
-        map('n', '#', '<Plug>(asterisk-#)', { noremap = false })
+        global.map('n', '*', '<Plug>(asterisk-*)', { noremap = false })
+        global.map('n', '#', '<Plug>(asterisk-#)', { noremap = false })
       end,
     },
     {
@@ -685,17 +684,17 @@ return packer.startup(function()
         }
         table.insert(dial.config.searchlist.normal, 'custom#boolean')
 
-        map({ 'n', 'v' }, '+', '<Plug>(dial-increment)', { noremap = false })
-        map({ 'n', 'v' }, '-', '<Plug>(dial-decrement)', { noremap = false })
+        global.map({ 'n', 'v' }, '+', '<Plug>(dial-increment)', { noremap = false })
+        global.map({ 'n', 'v' }, '-', '<Plug>(dial-decrement)', { noremap = false })
       end,
     },
     {
       'andymass/vim-matchup',
       opt = true,
       setup = function()
-         require("utils").lazy "vim-matchup"
+        require('utils').lazy 'vim-matchup'
       end,
-    }
+    },
   }
   -- }}}
 
@@ -798,11 +797,11 @@ return packer.startup(function()
         local hop = require 'hop'
         -- remove h,j,k,l from hops list of keys
         hop.setup { keys = 'etovxqpdygfbzcisuran' }
-        map('n', 's', hop.hint_char1)
-        map({ 'o', 'x' }, 'F', function()
+        global.map('n', 's', hop.hint_char1)
+        global.map({ 'o', 'x' }, 'F', function()
           hop.hint_char1 { direction = require('hop.hint').HintDirection.BEFORE_CURSOR }
         end)
-        map({ 'o', 'x' }, 'f', function()
+        global.map({ 'o', 'x' }, 'f', function()
           hop.hint_char1 { direction = require('hop.hint').HintDirection.AFTER_CURSOR }
         end)
       end,
@@ -820,10 +819,10 @@ return packer.startup(function()
       event = 'BufRead',
       config = function()
         vim.g.textobj_comment_no_default_key_mappings = 1
-        map('x', 'ax', '<Plug>(textobj-comment-a)', { noremap = false })
-        map('o', 'ax', '<Plug>(textobj-comment-a)', { noremap = false })
-        map('x', 'ix', '<Plug>(textobj-comment-i)', { noremap = false })
-        map('o', 'ix', '<Plug>(textobj-comment-i)', { noremap = false })
+        global.map('x', 'ax', '<Plug>(textobj-comment-a)', { noremap = false })
+        global.map('o', 'ax', '<Plug>(textobj-comment-a)', { noremap = false })
+        global.map('x', 'ix', '<Plug>(textobj-comment-i)', { noremap = false })
+        global.map('o', 'ix', '<Plug>(textobj-comment-i)', { noremap = false })
       end,
     },
     { 'rhysd/vim-operator-surround', event = 'BufRead' },
@@ -831,19 +830,11 @@ return packer.startup(function()
       'kana/vim-niceblock',
       event = 'BufRead',
       config = function()
-        map('x', 'I', '<Plug>(niceblock-I)', { noremap = false })
-        map('x', 'gI', '<Plug>(niceblock-gI)', { noremap = false })
-        map('x', 'A', '<Plug>(niceblock-A)', { noremap = false })
+        global.map('x', 'I', '<Plug>(niceblock-I)', { noremap = false })
+        global.map('x', 'gI', '<Plug>(niceblock-gI)', { noremap = false })
+        global.map('x', 'A', '<Plug>(niceblock-A)', { noremap = false })
       end,
     },
-  }
-  -- }}}
-
-  -- Themes {{{
-  use {
-    { 'NTBBloodbath/doom-one.nvim' },
-    { 'marko-cerovac/material.nvim' },
-    { 'projekt0n/github-nvim-theme' },
   }
   -- }}}
 end)

@@ -104,7 +104,7 @@ augroup('SmartClose', {
         or contains(smart_close_filetypes, vim.bo.filetype)
 
       if is_eligible then
-        as.nnoremap('q', smart_close, { buffer = 0, nowait = true })
+        global.map('n', 'q', smart_close, { buffer = 0, nowait = true })
       end
     end,
   },

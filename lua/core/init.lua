@@ -129,7 +129,7 @@ function global.map(mode, keys, cmd, opt)
       else
         if type(rhs) == 'function' then
           local fn_id = global._create(rhs)
-          rhs = string.format('<cmd>lua gl._execute(%s)<CR>', fn_id)
+          rhs = string.format('<cmd>lua global._execute(%s)<CR>', fn_id)
         end
         if valid_modes[mo] and lhs and rhs then
           if buffer and type(buffer) == 'number' then

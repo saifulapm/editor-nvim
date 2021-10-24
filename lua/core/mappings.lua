@@ -18,6 +18,12 @@ map('', 'k', 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 map('', '<Down>', 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
 map('', '<Up>', 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
+-- required_mappings
+map('n', '<C-a>', ':%y+ <CR>') -- copy whole file content
+map('n', '<S-t>', ':enew <CR>') -- new buffer
+map('n', '<C-t>b', ':tabnew <CR>') -- new tabs
+map('n', '<C-s>', ':w <CR>')
+
 -- Insert Mode Mapping
 map('i', '<C-p>', '<Esc>pa')
 map('i', '<C-b>', '<Left>')
@@ -52,10 +58,30 @@ endfunction
 
 map('x', '@', ':<C-u>call ExecuteMacroOverVisualRange()<CR>', { silent = false })
 
+-- Credit: Justinmk
+map('n', 'g>', [[<cmd>set nomore<bar>40messages<bar>set more<CR>]])
+
 -- Buffer
-map('n', '<leader>on', ':lua require("utils").buf_only()')
+map('n', '<leader>on', ':lua require("utils").buf_only()<CR>')
 map('n', '<Leader><Leader>', '<C-^>')
-map('n', '<leader>x', ':lua require("utils").close_buffer()')
+map('n', '<leader>x', ':lua require("utils").close_buffer()<CR>')
+map('n', '<Leader><tab>', ':BufferLineCycleNext <CR>')
+map('n', '<s-tab>', ':BufferLineCyclePrev <CR>')
+map('n', '[b', '<Cmd>BufferLineMoveNext<CR>')
+map('n', ']b', '<Cmd>BufferLineMovePrev<CR>')
+map('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>')
+map('n', '<leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>')
+map('n', '<leader>3', '<Cmd>BufferLineGoToBuffer 3<CR>')
+map('n', '<leader>4', '<Cmd>BufferLineGoToBuffer 4<CR>')
+map('n', '<leader>5', '<Cmd>BufferLineGoToBuffer 5<CR>')
+map('n', '<leader>6', '<Cmd>BufferLineGoToBuffer 6<CR>')
+map('n', '<leader>7', '<Cmd>BufferLineGoToBuffer 7<CR>')
+map('n', '<leader>8', '<Cmd>BufferLineGoToBuffer 8<CR>')
+map('n', '<leader>9', '<Cmd>BufferLineGoToBuffer 9<CR>')
+
+-- Session
+map('n', '<Leader>sl', ':RestoreSession<CR>')
+map('n', '<Leader>ss', ':SaveSession<CR>')
 
 -- Windows
 -- Change two horizontally split windows to vertical splits

@@ -1,5 +1,5 @@
 local sumneko = require 'plugins.lsp.sumneko'
-local null_ls = require 'plugins.lsp.null-ls'
+local null_ls = require 'plugins.lsp.null_ls'
 local tsserver = require 'plugins.lsp.tsserver'
 local intelephense = require 'plugins.lsp.tsserver'
 local lsp = vim.lsp

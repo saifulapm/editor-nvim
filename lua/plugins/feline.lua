@@ -1,4 +1,4 @@
-local colors = require('colors').get()
+local colors = require('colors').get 'onedark'
 local lsp = require 'feline.providers.lsp'
 
 local icon_styles = {
