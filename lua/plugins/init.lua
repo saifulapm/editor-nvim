@@ -496,16 +496,6 @@ return packer.startup(function()
     },
     { 'AndrewRadev/splitjoin.vim', keys = { 'gS', 'gJ' } },
     {
-      'hrsh7th/vim-eft',
-      config = function()
-        vim.g.eft_ignorecase = true
-      end,
-      setup = function()
-        require('utils').lazy 'vim-eft'
-      end,
-      opt = true,
-    },
-    {
       'karb94/neoscroll.nvim',
       keys = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', 'zt', 'zz', 'zb' },
       config = function()
