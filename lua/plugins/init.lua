@@ -840,4 +840,16 @@ return packer.startup(function()
     },
   }
   -- }}}
+
+  -- Personal Plugins {{{
+  use {
+    'saifulapm/chartoggle.nvim',
+    config = function()
+      require('chartoggle').setup {
+        leader = '<localleader>',
+        keys = { ',', ';' },
+      }
+    end,
+  }
+  -- }}}
 end)

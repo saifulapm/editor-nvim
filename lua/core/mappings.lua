@@ -75,8 +75,8 @@ map('n', 'zO', [[zCzO]])
 map('n', '[<space>', [[<cmd>put! =repeat(nr2char(10), v:count1)<cr>'[]])
 map('n', ']<space>', [[<cmd>put =repeat(nr2char(10), v:count1)<cr>]])
 
-map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
-map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
+-- map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
+-- map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
 
 -- Buffer
 map('n', '<leader>on', ':lua require("utils").buf_only()<CR>')
