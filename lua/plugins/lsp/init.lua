@@ -2,6 +2,7 @@ local sumneko = require 'plugins.lsp.sumneko'
 local null_ls = require 'plugins.lsp.null_ls'
 local tsserver = require 'plugins.lsp.tsserver'
 local intelephense = require 'plugins.lsp.intelephense'
+local shopify = require 'plugins.lsp.shopify'
 local lsp = vim.lsp
 
 local function lspSymbol(name, icon)
@@ -94,5 +95,6 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 tsserver.setup(on_attach, capabilities)
 intelephense.setup(on_attach, capabilities)
+shopify.setup(on_attach, capabilities)
 sumneko.setup(on_attach, capabilities)
 null_ls.setup(on_attach)
