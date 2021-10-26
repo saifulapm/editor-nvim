@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local api = vim.api
 local cmp = require 'cmp'
 local kinds = {
@@ -44,23 +45,27 @@ local function get_luasnip()
   return luasnip
 end
 
-local function tab(_)
+local function tab(fallback)
   local luasnip = get_luasnip()
   if cmp.visible() then
     cmp.select_next_item()
   elseif luasnip and luasnip.expand_or_jumpable() then
     feed '<Plug>luasnip-expand-or-jump'
+  elseif api.nvim_get_mode().mode == 'c' then
+    fallback()
   else
     feed '<Plug>(Tabout)'
   end
 end
 
-local function shift_tab(_)
+local function shift_tab(fallback)
   local luasnip = get_luasnip()
   if cmp.visible() then
     cmp.select_prev_item()
   elseif luasnip and luasnip.jumpable(-1) then
     feed '<Plug>luasnip-jump-prev'
+  elseif api.nvim_get_mode().mode == 'c' then
+    fallback()
   else
     feed '<Plug>(TaboutBack)'
   end
@@ -76,10 +81,10 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping(tab, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(shift_tab, { 'i', 's' }),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<Tab>'] = cmp.mapping(tab, { 'i', 'c' }),
+    ['<S-Tab>'] = cmp.mapping(shift_tab, { 'i', 'c' }),
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -106,6 +111,7 @@ cmp.setup {
         luasnip = '[Luasnip]',
         buffer = '[Buffer]',
         spell = '[Spell]',
+        cmdline = '[Command]',
       })[name]
 
       if name == 'cmp_tabnine' then
@@ -125,9 +131,31 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'nvim_lua' },
-    { name = 'spell' },
+    -- { name = 'spell' },
     { name = 'path' },
   }, {
     { name = 'buffer' },
   }),
 }
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' },
+  },
+})
+
+cmp.setup.cmdline('?', {
+  sources = {
+    { name = 'buffer' },
+  },
+})
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' },
+  }, {
+    { name = 'cmdline' },
+  }),
+})

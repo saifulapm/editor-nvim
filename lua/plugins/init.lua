@@ -137,10 +137,12 @@ return packer.startup(function()
       'hrsh7th/nvim-cmp',
       module = 'cmp',
       event = 'InsertEnter',
+      branch = 'cmdline',
       requires = {
         { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-        { 'f3fora/cmp-spell', after = 'nvim-cmp' },
+        -- { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        -- { 'f3fora/cmp-spell', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
@@ -185,7 +187,6 @@ return packer.startup(function()
     },
     {
       'mattn/emmet-vim',
-      event = 'InsertEnter',
       ft = {
         'html',
         'css',
@@ -274,11 +275,10 @@ return packer.startup(function()
     },
     {
       'lewis6991/spellsitter.nvim',
-      after = 'nvim-treesitter',
+      opt = true,
+      -- after = 'nvim-treesitter',
       config = function()
-        require('spellsitter').setup {
-          captures = { 'comment', 'string' },
-        }
+        require('spellsitter').setup()
       end,
     },
   }
@@ -522,7 +522,8 @@ return packer.startup(function()
     },
     {
       'gelguy/wilder.nvim',
-      event = { 'CursorHold', 'CmdlineEnter' },
+      opt = true,
+      -- event = { 'CursorHold', 'CmdlineEnter' },
       rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
       requires = { 'romgrk/fzy-lua-native' },
       run = ':UpdateRemotePlugins',
