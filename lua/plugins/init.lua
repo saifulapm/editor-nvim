@@ -142,7 +142,7 @@ return packer.startup(function()
         { 'hrsh7th/cmp-nvim-lsp' },
         -- { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-        -- { 'f3fora/cmp-spell', after = 'nvim-cmp' },
+        { 'f3fora/cmp-spell', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
@@ -267,10 +267,11 @@ return packer.startup(function()
     },
     {
       'lewis6991/spellsitter.nvim',
-      opt = true,
-      -- after = 'nvim-treesitter',
+      after = 'nvim-treesitter',
       config = function()
-        require('spellsitter').setup()
+        require('spellsitter').setup {
+          enable = true,
+        }
       end,
     },
   }
@@ -683,6 +684,13 @@ return packer.startup(function()
       opt = true,
       setup = function()
         require('utils').lazy 'vim-matchup'
+      end,
+    },
+    {
+      'lewis6991/spaceless.nvim',
+      event = 'InsertEnter',
+      config = function()
+        require('spaceless').setup()
       end,
     },
   }

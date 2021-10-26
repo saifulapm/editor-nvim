@@ -1,3 +1,5 @@
+-- Credits: https://github.com/rktjmp/highlight-current-n.nvim
+
 local M = {}
 
 local function highlight_current(buf, pos_row, pos_col)
@@ -13,7 +15,8 @@ local function highlight_current(buf, pos_row, pos_col)
   local ns_id = vim.api.nvim_create_namespace ''
   vim.api.nvim_buf_set_extmark(buf, ns_id, (pos_row - 1), pos_col, opts)
   local clear_cmd = string.format(
-    ':lua vim.api.nvim_buf_clear_namespace(%d, %d, 0, -1)',
+    ':lua if vim.fn.bufexists(%d) == 1 then vim.api.nvim_buf_clear_namespace(%d, %d, 0, -1) end',
+    buf,
     buf,
     ns_id
   )

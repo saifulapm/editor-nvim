@@ -292,6 +292,8 @@ opt.sidescroll = 1
 -----------------------------------------------------------------------------//
 -- Spelling {{{1
 -----------------------------------------------------------------------------//
+-- opt.spell = true
+-- opt.spellfile = string.format('%s/%s', vim.fn.stdpath 'config', 'spell/en.utf-8.add')
 opt.spellsuggest:prepend { 12 }
 opt.spelloptions = 'camel'
 opt.spellcapcheck = '' -- don't check for capital letters at start of sentence

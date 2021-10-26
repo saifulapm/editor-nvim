@@ -88,7 +88,9 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(shift_tab, { 'i', 'c' }),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping.complete(),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.config.disable,
+    ['<C-space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -134,7 +136,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'nvim_lua' },
-    -- { name = 'spell' },
+    { name = 'spell' },
     { name = 'path' },
   }, {
     { name = 'buffer' },
