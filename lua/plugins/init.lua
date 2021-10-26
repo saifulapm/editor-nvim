@@ -506,17 +506,17 @@ return packer.startup(function()
         require('Comment').setup()
       end,
     },
-    {
-      'gelguy/wilder.nvim',
-      opt = true,
-      -- event = { 'CursorHold', 'CmdlineEnter' },
-      rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
-      requires = { 'romgrk/fzy-lua-native' },
-      run = ':UpdateRemotePlugins',
-      config = function()
-        vim.cmd(string.format('source %s/%s', vim.fn.stdpath 'config', 'vimscript/wilder.vim'))
-      end,
-    },
+    -- {
+    --   'gelguy/wilder.nvim',
+    --   opt = true,
+    --   -- event = { 'CursorHold', 'CmdlineEnter' },
+    --   rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
+    --   requires = { 'romgrk/fzy-lua-native' },
+    --   run = ':UpdateRemotePlugins',
+    --   config = function()
+    --     vim.cmd(string.format('source %s/%s', vim.fn.stdpath 'config', 'vimscript/wilder.vim'))
+    --   end,
+    -- },
     {
       'folke/todo-comments.nvim',
       setup = function()

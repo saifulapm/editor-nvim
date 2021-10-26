@@ -72,6 +72,9 @@ local function shift_tab(fallback)
 end
 
 cmp.setup {
+  completion = {
+    keyword_length = 3, -- avoid keyword completion
+  },
   experimental = {
     ghost_text = true,
   },
@@ -140,12 +143,18 @@ cmp.setup {
 
 -- Use buffer source for `/`.
 cmp.setup.cmdline('/', {
+  completion = {
+    keyword_length = 2, -- avoid keyword completion
+  },
   sources = {
     { name = 'buffer' },
   },
 })
 
 cmp.setup.cmdline('?', {
+  completion = {
+    keyword_length = 2, -- avoid keyword completion
+  },
   sources = {
     { name = 'buffer' },
   },
@@ -153,6 +162,9 @@ cmp.setup.cmdline('?', {
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(':', {
+  completion = {
+    keyword_length = 3, -- avoid keyword completion
+  },
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
