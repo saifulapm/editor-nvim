@@ -460,12 +460,6 @@ return packer.startup(function()
   -- Editor Support {{{
   use {
     {
-      'ahmedkhalf/project.nvim',
-      config = function()
-        require('project_nvim').setup()
-      end,
-    },
-    {
       'chentau/marks.nvim',
       event = 'BufRead',
       config = function()
