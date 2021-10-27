@@ -135,9 +135,8 @@ return packer.startup(function()
   use {
     {
       'hrsh7th/nvim-cmp',
-      module = 'cmp',
-      event = 'InsertEnter',
-      branch = 'cmdline',
+      -- module = 'cmp',
+      event = { 'InsertEnter', 'CmdlineEnter' },
       requires = {
         { 'hrsh7th/cmp-nvim-lsp' },
         -- { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
