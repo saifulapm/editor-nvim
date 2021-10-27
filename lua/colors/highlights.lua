@@ -177,6 +177,9 @@ fg('TelescopeBorder', line)
 fg('TelescopePreviewBorder', grey)
 fg('TelescopePromptBorder', line)
 fg('TelescopeResultsBorder', line)
+fg_bg('TelescopePreviewTitle', green, one_bg)
+fg_bg('TelescopePromptTitle', blue, one_bg)
+fg_bg('TelescopeResultsTitle', red, one_bg)
 
 -- CMP
 fg('CmpItemAbbr', grey_fg .. ' gui=NONE')

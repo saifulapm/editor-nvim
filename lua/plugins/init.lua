@@ -264,15 +264,6 @@ return packer.startup(function()
         global.map('o', 'au', '<Cmd>lua require"treesitter-unit".select(true)<CR>')
       end,
     },
-    {
-      'lewis6991/spellsitter.nvim',
-      after = 'nvim-treesitter',
-      config = function()
-        require('spellsitter').setup {
-          enable = true,
-        }
-      end,
-    },
   }
   -- }}}
 

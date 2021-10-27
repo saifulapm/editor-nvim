@@ -151,18 +151,18 @@ augroup('CheckOutsideTime', {
   },
 })
 
-augroup('Templates', {
-  {
-    events = { 'BufNewFile' },
-    targets = { '*.sh' },
-    command = '0r $DOTFILES/.config/nvim/templates/skeleton.sh',
-  },
-  {
-    events = { 'BufNewFile' },
-    targets = { '*.lua' },
-    command = '0r $DOTFILES/.config/nvim/templates/skeleton.lua',
-  },
-})
+-- augroup('Templates', {
+--   {
+--     events = { 'BufNewFile' },
+--     targets = { '*.sh' },
+--     command = '0r $DOTFILES/.config/nvim/templates/skeleton.sh',
+--   },
+--   {
+--     events = { 'BufNewFile' },
+--     targets = { '*.lua' },
+--     command = '0r $DOTFILES/.config/nvim/templates/skeleton.lua',
+--   },
+-- })
 
 local function clear_commandline()
   --- Track the timer object and stop any previous timers before setting

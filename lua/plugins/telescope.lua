@@ -36,7 +36,7 @@ telescope.setup {
         ['<C-w>'] = actions.send_selected_to_qflist,
       },
     },
-    file_ignore_patterns = { '%.jpg', '%.jpeg', '%.png', '%.otf', '%.ttf' },
+    file_ignore_patterns = { '%.jpg', '%.jpeg', '%.png', '%.otf', '%.ttf', 'node_modules', '.git' },
     path_display = { 'smart', 'absolute', 'truncate' },
     layout_strategy = 'flex',
     layout_config = {

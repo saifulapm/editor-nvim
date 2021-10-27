@@ -56,4 +56,21 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+  rainbow = {
+    enable = true,
+    disable = { 'json' },
+    colors = {
+      'royalblue3',
+      'darkorange3',
+      'seagreen3',
+      'firebrick',
+      'darkorchid3',
+    },
+  },
+  autopairs = { enable = true },
+  -- query_linter = {
+  --   enable = true,
+  --   use_virtual_text = true,
+  --   lint_events = { 'BufWrite', 'CursorHold' },
+  -- },
 }
