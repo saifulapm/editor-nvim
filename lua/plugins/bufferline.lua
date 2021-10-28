@@ -75,7 +75,7 @@ bufferline.setup {
       },
       {
         filetype = 'NvimTree',
-        text = 'Explorer',
+        text = 'פּ Files',
         highlight = 'PanelHeading',
         padding = 1,
       },
