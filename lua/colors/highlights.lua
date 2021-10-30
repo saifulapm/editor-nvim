@@ -158,8 +158,9 @@ fg('NvimTreeIndentMarker', one_bg2)
 bg('NvimTreeNormal', darker_black)
 fg_bg('PanelHeading', white, darker_black)
 -- bg('NvimTreeStatusLine', darker_black)
+fg('NvimTreeOpenedFile', grey)
 fg('NvimTreeOpenedFolderName', blue)
-fg('NvimTreeRootFolder', red .. ' gui=underline') -- enable underline for root folder in nvim tree
+fg('NvimTreeRootFolder', green) -- enable underline for root folder in nvim tree
 fg_bg('NvimTreeStatuslineNc', darker_black, darker_black)
 fg('NvimTreeVertSplit', darker_black)
 bg('NvimTreeVertSplit', darker_black)
