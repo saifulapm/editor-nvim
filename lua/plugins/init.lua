@@ -128,6 +128,22 @@ return packer.startup(function()
         trouble.setup { auto_close = true, auto_preview = false }
       end,
     },
+    {
+      'rmagatti/goto-preview',
+      config = function()
+        require('goto-preview').setup {
+          width = 120,
+          height = 30,
+          default_mappings = true,
+          border = { '↖', '─', '╮', '│', '╯', '─', '╰', '│' },
+        }
+      end,
+      keys = { 'gpd', 'gpi', 'gpr', 'gP' },
+    },
+    {
+      'simrat39/symbols-outline.nvim',
+      cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen', 'SymbolsOutlineClose' },
+    },
   }
   -- }}}
 
@@ -165,11 +181,6 @@ return packer.startup(function()
         require('nvim-autopairs').setup {
           close_triple_quotes = true,
           check_ts = false,
-        }
-        require('nvim-autopairs.completion.cmp').setup {
-          map_cr = true, --  map <CR> on insert mode
-          map_complete = true, -- it will auto insert `(` after select function or method item
-          auto_select = true, -- automatically select the first item
         }
       end,
     },
