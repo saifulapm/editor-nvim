@@ -42,7 +42,7 @@ augroup('UpdateVim', {
     command = function()
       require 'plugins'
       require('packer').compile()
-      vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
+      -- vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
     end,
   },
   {
