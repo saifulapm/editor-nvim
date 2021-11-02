@@ -22,29 +22,29 @@ augroup('DisableComment', {
 })
 
 augroup('UpdateVim', {
-  {
-    events = 'BufWritePost',
-    targets = {
-      '~/.config/nvim/lua/core/*.lua',
-      '~/.config/nvim/lua/colors/*.lua',
-      '~/.config/nvim/lua/utils/*.lua',
-      '$MYVIMRC',
-    },
-    modifiers = { '++nested' },
-    command = function()
-      vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
-    end,
-  },
-  {
-    events = 'BufWritePost',
-    targets = { '~/.config/nvim/lua/plugins/*.lua' },
-    modifiers = { '++nested' },
-    command = function()
-      require 'plugins'
-      require('packer').compile()
-      -- vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
-    end,
-  },
+  -- {
+  --   events = 'BufWritePost',
+  --   targets = {
+  --     '~/.config/nvim/lua/core/*.lua',
+  --     '~/.config/nvim/lua/colors/*.lua',
+  --     '~/.config/nvim/lua/utils/*.lua',
+  --     '$MYVIMRC',
+  --   },
+  --   modifiers = { '++nested' },
+  --   command = function()
+  --     vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
+  --   end,
+  -- },
+  -- {
+  --   events = 'BufWritePost',
+  --   targets = { '~/.config/nvim/lua/plugins/*.lua' },
+  --   modifiers = { '++nested' },
+  --   command = function()
+  --     require 'plugins'
+  --     require('packer').compile()
+  --     vim.cmd 'source $MYVIMRC | redraw | silent doautocmd ColorScheme'
+  --   end,
+  -- },
   {
     events = { 'FocusLost' },
     targets = { '*' },

@@ -702,7 +702,7 @@ return packer.startup(function()
     {
       'soywod/himalaya',
       cmd = 'Himalaya',
-      rtp = 'vim',
+      rtp = 'email-manager/vim',
     },
     {
       'akinsho/toggleterm.nvim',
