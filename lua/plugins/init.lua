@@ -420,14 +420,7 @@ return packer.startup(function()
       'https://gitlab.com/yorickpeterse/nvim-pqf',
       ft = 'qf',
       config = function()
-        require('pqf').setup {
-          signs = {
-            error = '✗',
-            warning = '',
-            info = '',
-            hint = '',
-          },
-        }
+        require('pqf').setup {}
       end,
     },
   }
