@@ -841,7 +841,7 @@ return packer.startup(function()
     end,
   }
 
-  -- use { '~/Sites/neovim/stackflow.nvim' }
+  use { '~/Sites/neovim/stackflow.nvim' }
   -- use { '~/Sites/neovim/nvim-cheat.sh' }
   -- use { '~/Sites/neovim/popfix' }
   -- }}}
