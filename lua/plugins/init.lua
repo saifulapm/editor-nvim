@@ -842,15 +842,15 @@ return packer.startup(function()
   -- }}}
 
   -- Personal Plugins {{{
-  use {
-    'saifulapm/chartoggle.nvim',
-    config = function()
-      require('chartoggle').setup {
-        leader = '<localleader>',
-        keys = { ',', ';' },
-      }
-    end,
-  }
+  -- use {
+  --   'saifulapm/chartoggle.nvim',
+  --   config = function()
+  --     require('chartoggle').setup {
+  --       leader = '<localleader>',
+  --       keys = { ',', ';' },
+  --     }
+  --   end,
+  -- }
 
   use { '~/Sites/neovim/stackflow.nvim' }
   -- use { '~/Sites/neovim/nvim-cheat.sh' }

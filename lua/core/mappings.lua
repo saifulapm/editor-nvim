@@ -42,13 +42,13 @@ map('i', '<C-s>', '<Esc>:w<CR>')
 map('i', '<C-q>', '<Esc>:wq<CR>')
 
 -- Commandline Mapping
-map('c', '<C-b>', '<Left>')
-map('c', '<C-f>', '<Right>')
-map('c', '<C-a>', '<Home>')
-map('c', '<C-e>', '<End>')
-map('c', '<C-d>', '<Del>')
-map('c', '<C-h>', '<BS>')
-map('c', '<C-t>', [[<C-R>=expand("%:p:h") . "/" <CR>]])
+map('c', '<C-b>', '<Left>', { silent = false })
+map('c', '<C-f>', '<Right>', { silent = false })
+map('c', '<C-a>', '<Home>', { silent = false })
+map('c', '<C-e>', '<End>', { silent = false })
+map('c', '<C-d>', '<Del>', { silent = false })
+map('c', '<C-h>', '<BS>', { silent = false })
+map('c', '<C-t>', [[<C-R>=expand("%:p:h") . "/" <CR>]], { silent = false })
 
 -- MACROS
 vim.cmd [[
@@ -75,8 +75,8 @@ map('n', 'zO', [[zCzO]])
 map('n', '[<space>', [[<cmd>put! =repeat(nr2char(10), v:count1)<cr>'[]])
 map('n', ']<space>', [[<cmd>put =repeat(nr2char(10), v:count1)<cr>]])
 
--- map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
--- map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
+map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
+map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
 
 -- Buffer
 map('n', '<leader>on', ':lua require("utils").buf_only()<CR>')
@@ -174,7 +174,7 @@ map('n', 'Q', '@q')
 map({ 'n', 'v' }, 'cn', '*``cgn')
 map({ 'n', 'v' }, 'cN', '*``cgN')
 
-map('c', 'w!!', [[w !sudo tee % >/dev/null]])
+-- map('c', 'w!!', [[w !sudo tee % >/dev/null]])
 
 -- Grep Operator
 function global.grep_operator(type)
@@ -297,13 +297,6 @@ global.augroup('AddTerminalMappings', {
     end,
   },
 })
-
-command {
-  'ToggleBackground',
-  function()
-    vim.o.background = vim.o.background == 'dark' and 'light' or 'dark'
-  end,
-}
 
 command {
   'ReloadModule',
