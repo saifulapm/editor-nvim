@@ -5,6 +5,12 @@ local sources = {
   b.formatting.prettier.with {
     filetypes = { 'html', 'json', 'yaml', 'markdown' },
   },
+  b.formatting.eslint_d.with {
+    filetypes = { 'javascript' },
+    condition = function(utils)
+      return utils.root_has_file '.eslintrc.js'
+    end,
+  },
   b.formatting.stylua.with {
     condition = function(utils)
       return utils.root_has_file 'stylua.toml'

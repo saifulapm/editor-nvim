@@ -77,6 +77,7 @@ return packer.startup(function()
       requires = {
         { 'jose-elias-alvarez/null-ls.nvim' },
         { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
+        { 'b0o/schemastore.nvim' },
         { 'folke/lua-dev.nvim' },
         {
           'RRethy/vim-illuminate',
