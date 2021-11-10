@@ -91,14 +91,9 @@ cmp.setup {
     ['<C-y>'] = cmp.config.disable,
     ['<C-e>'] = cmp.config.disable,
     ['<C-space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping {
-      i = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      },
-      c = cmp.mapping.confirm {
-        select = false,
-      },
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
     },
   },
   formatting = {
