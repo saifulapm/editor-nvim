@@ -73,10 +73,10 @@ end
 
 cmp.setup {
   completion = {
-    keyword_length = 3, -- avoid keyword completion
+    keyword_length = 2, -- avoid keyword completion
   },
   experimental = {
-    ghost_text = true,
+    ghost_text = false,
   },
   snippet = {
     expand = function(args)
@@ -91,9 +91,14 @@ cmp.setup {
     ['<C-y>'] = cmp.config.disable,
     ['<C-e>'] = cmp.config.disable,
     ['<C-space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    ['<CR>'] = cmp.mapping {
+      i = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      },
+      c = cmp.mapping.confirm {
+        select = false,
+      },
     },
   },
   formatting = {
@@ -115,6 +120,8 @@ cmp.setup {
         cmp_tabnine = '[TN]',
         luasnip = '[Luasnip]',
         buffer = '[Buffer]',
+        fuzzy_buffer = '[Fuzzy Buffer]',
+        fuzzy_path = '[Fuzzy Path]',
         spell = '[Spell]',
         cmdline = '[Command]',
       })[name]
@@ -135,40 +142,38 @@ cmp.setup {
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'cmp_tabnine' },
     { name = 'nvim_lua' },
     { name = 'spell' },
-    { name = 'path' },
+    { name = 'fuzzy_path' },
   }, {
-    { name = 'buffer' },
+    { name = 'fuzzy_buffer' },
+  }),
+}
+
+local search_sources = {
+  completion = {
+    keyword_length = 2, -- avoid keyword completion
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp_document_symbol' },
+  }, {
+    { name = 'fuzzy_buffer' },
   }),
 }
 
 -- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-  completion = {
-    keyword_length = 2, -- avoid keyword completion
-  },
-  sources = {
-    { name = 'buffer' },
-  },
-})
+cmp.setup.cmdline('/', search_sources)
 
-cmp.setup.cmdline('?', {
-  completion = {
-    keyword_length = 2, -- avoid keyword completion
-  },
-  sources = {
-    { name = 'buffer' },
-  },
-})
+cmp.setup.cmdline('?', search_sources)
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(':', {
   completion = {
-    keyword_length = 3, -- avoid keyword completion
+    keyword_length = 2, -- avoid keyword completion
   },
   sources = cmp.config.sources({
-    { name = 'path' },
+    { name = 'fuzzy_path' },
   }, {
     { name = 'cmdline' },
   }),
