@@ -103,9 +103,16 @@ return packer.startup(function()
       config = function()
         require('lsp_signature').setup {
           bind = true,
-          fix_pos = function(signatures, _) -- second argument is the client
-            return signatures[1].activeParameter >= 0 and signatures[1].parameters > 1
+          fix_pos = function(signatures, client)
+            if signatures[1].activeParameter >= 0 and #signatures[1].parameters == 1 then
+              return false
+            end
+            if client.name == 'sumneko_lua' then
+              return true
+            end
+            return false
           end,
+          auto_close_after = 15,
           hint_enable = false,
           handler_opts = { border = 'rounded' },
         }
