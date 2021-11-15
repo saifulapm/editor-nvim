@@ -88,7 +88,7 @@ fg('LineNr', grey)
 fg('NvimInternalError', red)
 
 fg('VertSplit', one_bg2)
-bg('Folded', 'NONE')
+fg_bg('Folded', grey, 'NONE gui=bold')
 fg_bg('FoldColumn', grey, 'none')
 
 if transparency then

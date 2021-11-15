@@ -75,8 +75,20 @@ map('n', 'zO', [[zCzO]])
 map('n', '[<space>', [[<cmd>put! =repeat(nr2char(10), v:count1)<cr>'[]])
 map('n', ']<space>', [[<cmd>put =repeat(nr2char(10), v:count1)<cr>]])
 
+-- ToggleChar
 map('n', '<localleader>,', ":lua require('utils').toggle_char(',')<CR>")
 map('n', '<localleader>;', ":lua require('utils').toggle_char(';')<CR>")
+
+-- Move
+-- TODO: Not working Properly
+map('n', '<S-Down>', ":lua require('utils.move').verticalLine(1)<CR>")
+map('n', '<S-Up>', ":lua require('utils.move').verticalLine(-1)<CR>")
+map('v', '<S-Down>', ":lua require('utils.move').verticalBlock(1)<CR>")
+map('v', '<S-Up>', ":lua require('utils.move').verticalBlock(-1)<CR>")
+map('n', '<S-Right>', ":lua require('utils.move').horzChar(1)<CR>")
+map('n', '<S-Left>', ":lua require('utils.move').horzChar(-1)<CR>")
+map('v', '<S-Right>', ":lua require('utils.move').horzBlock(1)<CR>")
+map('v', '<S-Left>', ":lua require('utils.move').horzBlock(-1)<CR>")
 
 -- Buffer
 map('n', '<leader>on', ':lua require("utils").buf_only()<CR>')

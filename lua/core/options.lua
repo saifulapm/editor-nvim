@@ -90,7 +90,7 @@ opt.formatoptions = {
 -----------------------------------------------------------------------------//
 -- Folds {{{1
 -----------------------------------------------------------------------------//
--- opt.foldtext = 'v:lua.as.folds()'
+opt.foldtext = 'v:lua.global.folds()'
 opt.foldopen = opt.foldopen + 'search'
 opt.foldlevelstart = 3
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
