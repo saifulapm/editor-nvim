@@ -58,7 +58,7 @@ require('nvim-treesitter.configs').setup {
   },
   rainbow = {
     enable = true,
-    disable = { 'json' },
+    disable = { 'json', 'html', 'lua' },
     colors = {
       'royalblue3',
       'darkorange3',

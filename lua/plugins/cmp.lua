@@ -140,7 +140,7 @@ cmp.setup {
     { name = 'cmp_tabnine' },
     { name = 'nvim_lua' },
     { name = 'spell' },
-    { name = 'fuzzy_path' },
+    { name = 'path' },
   }, {
     { name = 'fuzzy_buffer' },
   }),
