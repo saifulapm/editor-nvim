@@ -3,16 +3,6 @@ local lspconfig = require 'lspconfig'
 local ts_utils_settings = {
   -- debug = true,
   import_all_scan_buffers = 100,
-  eslint_bin = 'eslint_d',
-  eslint_enable_diagnostics = true,
-  eslint_opts = {
-    condition = function(utils)
-      return utils.root_has_file '.eslintrc.js'
-    end,
-    diagnostics_format = '#{m} [#{c}]',
-  },
-  enable_formatting = true,
-  formatter = 'eslint_d',
   update_imports_on_move = true,
   -- filter out dumb module warning
   filter_out_diagnostics_by_code = { 80001 },

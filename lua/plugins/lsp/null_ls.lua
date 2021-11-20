@@ -1,16 +1,20 @@
 local null_ls = require 'null-ls'
 local b = null_ls.builtins
 
+local eslint_opts = {
+  condition = function(utils)
+    return utils.root_has_file '.eslintrc.js'
+  end,
+  diagnostics_format = '#{m} [#{c}]',
+}
+
 local sources = {
   b.formatting.prettier.with {
     filetypes = { 'html', 'json', 'yaml', 'markdown' },
   },
-  b.formatting.eslint_d.with {
-    filetypes = { 'javascript' },
-    condition = function(utils)
-      return utils.root_has_file '.eslintrc.js'
-    end,
-  },
+  b.diagnostics.eslint_d.with(eslint_opts),
+  b.formatting.eslint_d.with(eslint_opts),
+  b.code_actions.eslint_d.with(eslint_opts),
   b.formatting.stylua.with {
     condition = function(utils)
       return utils.root_has_file 'stylua.toml'

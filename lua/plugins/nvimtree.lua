@@ -57,6 +57,6 @@ require('nvim-tree').setup {
   },
   filters = {
     dotfiles = false,
-    custom = { '.DS_Store', 'fugitive:', '.git', '_compiled.lua' },
+    custom = { '.DS_Store', 'fugitive:', '.git', '_compiled.lua', '.php-cs-fixer.dist.php' },
   },
 }
