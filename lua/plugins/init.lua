@@ -271,6 +271,21 @@ return packer.startup(function()
         -- },
       },
     },
+    use {
+      'github/copilot.vim',
+      config = function()
+        vim.g.copilot_no_tab_map = true
+        vim.g.copilot_assume_mapped = true
+        vim.g.copilot_tab_fallback = ''
+        vim.g.copilot_filetypes = {
+          ['*'] = true,
+          dart = false,
+          gitcommit = false,
+          NeogitCommitMessage = false,
+        }
+        global.map('i', '<c-h>', [[copilot#Accept("\<CR>")]], { expr = true, script = true })
+      end,
+    },
   }
   -- }}}
 

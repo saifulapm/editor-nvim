@@ -197,3 +197,6 @@ fg('qfPosition', green)
 -- Orgmode
 fg('OrgDone', 'Green' .. ' gui=bold')
 fg('OrgAgendaScheduled', 'Teal')
+
+-- Copilot
+link('CopilotSuggestion', 'Comment')
