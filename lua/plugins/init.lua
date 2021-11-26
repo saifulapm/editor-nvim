@@ -26,6 +26,7 @@ return packer.startup(function()
             literal = {
               ['kitty.conf'] = 'kitty',
               ['.gitignore'] = 'conf',
+              ['.env'] = 'sh',
             },
           },
         }
@@ -94,6 +95,7 @@ return packer.startup(function()
     },
     {
       'windwp/lsp-fastaction.nvim',
+      disable = true,
       config = function()
         require 'plugins.fastaction'
       end,
@@ -169,17 +171,17 @@ return packer.startup(function()
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-        { 'tzachar/cmp-tabnine', run = './install.sh', after = 'nvim-cmp' },
-        {
-          'tzachar/cmp-fuzzy-path',
-          after = 'cmp-path',
-          requires = { 'hrsh7th/cmp-path', 'tzachar/fuzzy.nvim' },
-        },
-        {
-          'tzachar/cmp-fuzzy-buffer',
-          after = 'nvim-cmp',
-          requires = { 'tzachar/fuzzy.nvim' },
-        },
+        -- { 'tzachar/cmp-tabnine', run = './install.sh', after = 'nvim-cmp' },
+        -- {
+        --   'tzachar/cmp-fuzzy-path',
+        --   after = 'cmp-path',
+        --   requires = { 'hrsh7th/cmp-path', 'tzachar/fuzzy.nvim' },
+        -- },
+        -- {
+        --   'tzachar/cmp-fuzzy-buffer',
+        --   after = 'nvim-cmp',
+        --   requires = { 'tzachar/fuzzy.nvim' },
+        -- },
       },
       config = function()
         require 'plugins.cmp'
@@ -260,6 +262,13 @@ return packer.startup(function()
             require('telescope').load_extension 'smart_history'
           end,
         },
+        -- {
+        --   'nvim-telescope/telescope-ui-select.nvim',
+        --   after = 'telescope.nvim',
+        --   config = function()
+        --     require('telescope').load_extension 'ui-select'
+        --   end,
+        -- },
       },
     },
   }
@@ -798,14 +807,28 @@ return packer.startup(function()
         -- remove h,j,k,l from hops list of keys
         hop.setup { keys = 'etovxqpdygfbzcisuran' }
         global.map('n', 's', hop.hint_char1)
-        global.map({ 'o', 'x', 'n' }, 'F', function()
+        global.map({ 'x', 'n' }, 'F', function()
+          hop.hint_char1 {
+            direction = require('hop.hint').HintDirection.BEFORE_CURSOR,
+            current_line_only = true,
+            inclusive_jump = false,
+          }
+        end)
+        global.map({ 'x', 'n' }, 'f', function()
+          hop.hint_char1 {
+            direction = require('hop.hint').HintDirection.AFTER_CURSOR,
+            current_line_only = true,
+            inclusive_jump = false,
+          }
+        end)
+        global.map('o', 'F', function()
           hop.hint_char1 {
             direction = require('hop.hint').HintDirection.BEFORE_CURSOR,
             current_line_only = true,
             inclusive_jump = true,
           }
         end)
-        global.map({ 'o', 'x', 'n' }, 'f', function()
+        global.map('o', 'f', function()
           hop.hint_char1 {
             direction = require('hop.hint').HintDirection.AFTER_CURSOR,
             current_line_only = true,

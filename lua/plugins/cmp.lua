@@ -142,7 +142,7 @@ cmp.setup {
     { name = 'spell' },
     { name = 'path' },
   }, {
-    { name = 'fuzzy_buffer' },
+    { name = 'buffer' },
   }),
 }
 
@@ -153,7 +153,7 @@ local search_sources = {
   sources = cmp.config.sources({
     { name = 'nvim_lsp_document_symbol' },
   }, {
-    { name = 'fuzzy_buffer' },
+    { name = 'buffer' },
   }),
 }
 
@@ -168,7 +168,7 @@ cmp.setup.cmdline(':', {
     keyword_length = 2, -- avoid keyword completion
   },
   sources = cmp.config.sources({
-    { name = 'fuzzy_path' },
+    { name = 'path' },
   }, {
     { name = 'cmdline' },
   }),

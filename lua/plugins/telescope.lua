@@ -1,18 +1,23 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local action_set = require 'telescope.actions.set'
+local themes = require 'telescope.themes'
 
----@param opts table
----@return table
-local function dropdown(opts)
-  return require('telescope.themes').get_dropdown(vim.tbl_deep_extend('force', opts or {}, {
+local function get_border(opts)
+  return vim.tbl_deep_extend('force', opts or {}, {
     borderchars = {
       { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       prompt = { '─', '│', ' ', '│', '┌', '┐', '│', '│' },
       results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
       preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
     },
-  }))
+  })
+end
+
+---@param opts table
+---@return table
+local function dropdown(opts)
+  return themes.get_dropdown(get_border(opts))
 end
 
 telescope.setup {
@@ -61,6 +66,15 @@ telescope.setup {
       override_generic_sorter = true, -- override the generic sorter
       override_file_sorter = true, -- override the file sorter
     },
+    -- ['ui-select'] = {
+    --   themes.get_cursor(get_border {
+    --     layout_config = {
+    --       cursor = {
+    --         width = 0.3,
+    --       },
+    --     },
+    --   }),
+    -- },
   },
   pickers = {
     buffers = dropdown {

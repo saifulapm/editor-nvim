@@ -75,10 +75,8 @@ local on_attach = function(client, bufnr)
     map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   end
 
-  if not global.has_map('<leader>ca', 'n') then
-    map('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    map('v', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  end
+  map('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  map('x', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
 
   if client.supports_method 'textDocument/rename' then
     map('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -99,4 +97,4 @@ intelephense.setup(on_attach, capabilities)
 shopify.setup(on_attach, capabilities)
 sumneko.setup(on_attach, capabilities)
 jsonls.setup(on_attach, capabilities)
-null_ls.setup(on_attach)
+-- null_ls.setup(on_attach)

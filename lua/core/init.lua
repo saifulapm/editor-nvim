@@ -88,11 +88,6 @@ function global.augroup(name, commands)
   vim.cmd 'augroup END'
 end
 
-function global.has_map(lhs, mode)
-  mode = mode or 'n'
-  return vim.fn.maparg(lhs, mode) ~= ''
-end
-
 function global.map(mode, keys, cmd, opt)
   local options = { noremap = true, silent = true }
   local buffer = nil
