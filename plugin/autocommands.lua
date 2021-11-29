@@ -189,37 +189,6 @@ augroup('ClearCommandMessages', {
   },
 })
 
-if vim.env.TMUX ~= nil then
-  augroup('External', {
-    {
-      events = { 'BufEnter' },
-      targets = { '*' },
-      command = function()
-        vim.o.titlestring = require('utils').title_string()
-      end,
-    },
-    {
-      events = { 'VimLeavePre' },
-      targets = { '*' },
-      command = function()
-        require('utils').tmux.set_statusline(true)
-      end,
-    },
-    {
-      events = { 'ColorScheme', 'FocusGained' },
-      targets = { '*' },
-      command = function()
-        -- NOTE: there is a race condition here as the colors
-        -- for kitty to re-use need to be set AFTER the rest of the colorscheme
-        -- overrides
-        vim.defer_fn(function()
-          require('utils').tmux.set_statusline()
-        end, 1)
-      end,
-    },
-  })
-end
-
 augroup('TextYankHighlight', {
   {
     -- don't execute silently in case of errors
