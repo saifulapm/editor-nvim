@@ -119,7 +119,7 @@ fg('IndentBlanklineChar', line)
 -----------------------------------------------------------------------------//
 -- Treesitter
 -----------------------------------------------------------------------------//
-link('TSError', 'LspDiagnosticsUnderlineError')
+-- link('TSError', 'DiagnosticUnderlineError')
 -- highlight FIXME comments
 fg('commentTSWarning', red .. ' gui=bold')
 fg('commentTSDanger', yellow .. ' gui=bold')
@@ -132,11 +132,11 @@ fg('commentTSDanger', yellow .. ' gui=bold')
 -- 2. Some plugins have not migrated so having both highlight groups is valuable
 fg('LspReferenceText', 'NONE' .. ' gui=underline')
 fg('LspReferenceRead', 'NONE' .. ' gui=underline')
-fg('LspDiagnosticsSignHint', lsp.hint)
-fg('LspDiagnosticsDefaultHint', lsp.hint)
-fg('LspDiagnosticsDefaultError', lsp.error)
-fg('LspDiagnosticsDefaultWarning', lsp.warn)
-fg('LspDiagnosticsDefaultInformation', lsp.info)
+fg('DiagnosticSignHint', lsp.hint)
+fg('DiagnosticDefaultHint', lsp.hint)
+fg('DiagnosticDefaultError', lsp.error)
+fg('DiagnosticDefaultWarn', lsp.warn)
+fg('DiagnosticDefaultInfo', lsp.info)
 
 -- ]]
 

@@ -7,16 +7,13 @@ local jsonls = require 'plugins.lsp.jsonls'
 local lsp = vim.lsp
 
 local function lspSymbol(name, icon)
-  vim.fn.sign_define(
-    'LspDiagnosticsSign' .. name,
-    { text = icon, numhl = 'LspDiagnosticsDefault' .. name }
-  )
+  vim.fn.sign_define('DiagnosticSign' .. name, { text = icon, numhl = 'DiagnosticDefault' .. name })
 end
 
 lspSymbol('Error', '✗')
-lspSymbol('Information', '')
+lspSymbol('Info', '')
 lspSymbol('Hint', '')
-lspSymbol('Warning', '')
+lspSymbol('Warn', '')
 
 lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = {
@@ -56,12 +53,12 @@ local on_attach = function(client, bufnr)
   map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   map('n', '[d', function()
-    vim.lsp.diagnostic.goto_prev {
+    vim.diagnostic.goto_prev {
       popup_opts = { border = 'rounded', focusable = false, source = 'always' },
     }
   end, opts)
   map('n', ']d', function()
-    vim.lsp.diagnostic.goto_next {
+    vim.diagnostic.goto_next {
       popup_opts = { border = 'rounded', focusable = false, source = 'always' },
     }
   end, opts)
