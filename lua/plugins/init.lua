@@ -442,7 +442,8 @@ return packer.startup(function()
 
   -- Filetype Plugins {{{
   use {
-    { 'dart-lang/dart-vim-plugin', ft = 'dart' },
+    { 'dart-lang/dart-vim-plugin' },
+    { 'akinsho/flutter-tools.nvim' },
     { 'plasticboy/vim-markdown', ft = 'markdown' },
     {
       'iamcco/markdown-preview.nvim',

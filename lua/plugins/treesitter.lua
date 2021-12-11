@@ -3,6 +3,7 @@ require('nvim-treesitter.configs').setup {
     'lua',
     'javascript',
     'php',
+    'dart',
     -- 'norg',
   },
   highlight = {
