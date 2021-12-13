@@ -48,6 +48,11 @@ telescope.setup {
       horizontal = {
         preview_width = 0.45,
       },
+      cursor = get_border {
+        layout_config = {
+          cursor = { width = 0.3 },
+        },
+      },
     },
     winblend = 3,
     history = {

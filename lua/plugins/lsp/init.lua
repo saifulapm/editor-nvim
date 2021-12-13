@@ -1,10 +1,3 @@
-local sumneko = require 'plugins.lsp.sumneko'
-local null_ls = require 'plugins.lsp.null_ls'
-local tsserver = require 'plugins.lsp.tsserver'
-local intelephense = require 'plugins.lsp.intelephense'
-local shopify = require 'plugins.lsp.shopify'
-local jsonls = require 'plugins.lsp.jsonls'
-local dartls = require 'plugins.lsp.dart'
 local lsp = vim.lsp
 
 local function lspSymbol(name, icon)
@@ -90,10 +83,27 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-tsserver.setup(on_attach, capabilities)
-intelephense.setup(on_attach, capabilities)
-shopify.setup(on_attach, capabilities)
-sumneko.setup(on_attach, capabilities)
-jsonls.setup(on_attach, capabilities)
-dartls.setup(on_attach, capabilities)
-null_ls.setup(on_attach)
+for _, server in ipairs {
+  'intelephense',
+  'shopify',
+  'eslint',
+  'jsonls',
+  'null_ls',
+  'sumneko',
+  'tsserver',
+  'dart',
+  'bashls',
+  'denols',
+} do
+  require('plugins.lsp.' .. server).setup(on_attach, capabilities)
+end
+
+-- suppress lspconfig messages
+local notify = vim.notify
+vim.notify = function(msg, ...)
+  if msg:match '%[lspconfig%]' then
+    return
+  end
+
+  notify(msg, ...)
+end
