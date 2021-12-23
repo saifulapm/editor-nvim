@@ -45,7 +45,7 @@ return packer.startup(function()
   use {
     { 'kyazdani42/nvim-web-devicons' },
     {
-      'famiu/feline.nvim',
+      'feline-nvim/feline.nvim',
       after = 'nvim-base16.lua',
       config = function()
         require 'plugins.feline'
@@ -495,8 +495,10 @@ return packer.startup(function()
           enable_persistant_history = true,
           db_path = vim.fn.stdpath 'data' .. '/neoclip.sqlite3',
           keys = {
-            i = { select = '<CR>', paste = '<c-p>', paste_behind = '<c-k>' },
-            n = { select = '<CR>', paste = 'p', paste_behind = 'P' },
+            telescope = {
+              i = { select = '<CR>', paste = '<c-p>', paste_behind = '<c-k>' },
+              n = { select = '<CR>', paste = 'p', paste_behind = 'P' },
+            },
           },
         }
       end,
