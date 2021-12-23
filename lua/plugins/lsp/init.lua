@@ -9,7 +9,7 @@ lspSymbol('Info', '')
 lspSymbol('Hint', '')
 lspSymbol('Warn', '')
 
-lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config {
   virtual_text = {
     prefix = '',
     spacing = 0,
@@ -17,7 +17,7 @@ lsp.handlers['textDocument/publishDiagnostics'] = lsp.with(lsp.diagnostic.on_pub
   signs = true,
   underline = true,
   update_in_insert = false,
-})
+}
 
 local popup_opts = { border = 'single', focusable = false }
 
@@ -45,7 +45,7 @@ local on_attach = function(client, bufnr)
     opts
   )
   map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  map('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   map('n', '[d', function()
     vim.diagnostic.goto_prev {
       popup_opts = { border = 'rounded', focusable = false, source = 'always' },
@@ -56,7 +56,7 @@ local on_attach = function(client, bufnr)
       popup_opts = { border = 'rounded', focusable = false, source = 'always' },
     }
   end, opts)
-  map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  map('n', '<space>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
   map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   if client.resolved_capabilities.implementation then
     map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
