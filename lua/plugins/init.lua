@@ -490,6 +490,7 @@ return packer.startup(function()
     {
       'AckslD/nvim-neoclip.lua',
       event = 'BufRead',
+      disable = true,
       config = function()
         require('neoclip').setup {
           enable_persistant_history = true,
