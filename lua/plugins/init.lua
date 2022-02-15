@@ -69,12 +69,21 @@ return packer.startup(function()
       'stevearc/dressing.nvim',
       config = function()
         require('dressing').setup {
+          input = {
+            insert_only = false,
+          },
           select = {
             telescope = {
               theme = 'cursor',
             },
           },
         }
+      end,
+    },
+    {
+      'xiyaowong/nvim-cursorword',
+      config = function()
+        vim.g.cursorword_disable_filetypes = { 'NvimTree' }
       end,
     },
   }
@@ -92,25 +101,7 @@ return packer.startup(function()
         { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
         { 'b0o/schemastore.nvim' },
         { 'folke/lua-dev.nvim' },
-        {
-          'RRethy/vim-illuminate',
-          config = function()
-            global.map('n', '<A-n>', '<cmd> lua require"illuminate".next_reference{wrap=true}<CR>')
-            global.map(
-              'n',
-              '<A-p>',
-              '<cmd> lua require"illuminate".next_reference{reverse=true,wrap=true}<CR>'
-            )
-          end,
-        },
       },
-    },
-    {
-      'windwp/lsp-fastaction.nvim',
-      disable = true,
-      config = function()
-        require 'plugins.fastaction'
-      end,
     },
     {
       'ray-x/lsp_signature.nvim',
@@ -299,6 +290,30 @@ return packer.startup(function()
           javascript = true,
         }
         global.map('i', '<c-h>', [[copilot#Accept("\<CR>")]], { expr = true, script = true })
+      end,
+    },
+  }
+  -- }}}
+
+  -- Debugger {{{
+  use {
+    {
+      'mfussenegger/nvim-dap',
+      config = function()
+        require 'plugins.dap'
+      end,
+    },
+    { 'nvim-telescope/telescope-dap.nvim' },
+    {
+      'rcarriga/nvim-dap-ui',
+      config = function()
+        require('dapui').setup()
+      end,
+    },
+    {
+      'theHamsta/nvim-dap-virtual-text',
+      config = function()
+        require('nvim-dap-virtual-text').setup()
       end,
     },
   }
@@ -749,64 +764,20 @@ return packer.startup(function()
       rtp = 'email-manager/vim',
     },
     {
-      'akinsho/toggleterm.nvim',
-      opt = true,
-      setup = function()
-        require('utils').lazy 'toggleterm.nvim'
-      end,
+      'numToStr/FTerm.nvim',
       config = function()
-        require('toggleterm').setup {
-          open_mapping = [[<c-\>]],
-          shade_filetypes = { 'none' },
-          direction = 'vertical',
-          start_in_insert = true,
-          float_opts = { border = 'curved', winblend = 3 },
-          size = function(term)
-            if term.direction == 'horizontal' then
-              return 15
-            elseif term.direction == 'vertical' then
-              return math.floor(vim.o.columns * 0.4)
-            end
-          end,
+        require('FTerm').setup {
+          border = 'single',
+          dimensions = {
+            height = 0.6,
+            width = 0.9,
+          },
         }
+        local map = vim.api.nvim_set_keymap
+        local opts = { noremap = true, silent = true }
 
-        local float_handler = function(term)
-          if vim.fn.mapcheck('jk', 't') ~= '' then
-            vim.api.nvim_buf_del_keymap(term.bufnr, 't', 'jk')
-            vim.api.nvim_buf_del_keymap(term.bufnr, 't', '<esc>')
-          end
-        end
-
-        local Terminal = require('toggleterm.terminal').Terminal
-
-        local lazygit = Terminal:new {
-          cmd = 'lazygit',
-          dir = 'git_dir',
-          hidden = true,
-          direction = 'float',
-          on_open = float_handler,
-        }
-
-        global.command {
-          'Lazygit',
-          function()
-            lazygit:toggle()
-          end,
-        }
-
-        local htop = Terminal:new {
-          cmd = 'htop',
-          hidden = 'true',
-          direction = 'float',
-          on_open = float_handler,
-        }
-
-        global.command {
-          'Htop',
-          function()
-            htop:toggle()
-          end,
-        }
+        map('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
+        map('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
       end,
     },
     {

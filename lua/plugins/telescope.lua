@@ -41,7 +41,15 @@ telescope.setup {
         ['<C-w>'] = actions.send_selected_to_qflist,
       },
     },
-    file_ignore_patterns = { '%.jpg', '%.jpeg', '%.png', '%.otf', '%.ttf', 'node_modules', '.git' },
+    file_ignore_patterns = {
+      '%.jpg',
+      '%.jpeg',
+      '%.png',
+      '%.otf',
+      '%.ttf',
+      'node_modules',
+      '.git',
+    },
     path_display = { 'smart', 'absolute', 'truncate' },
     layout_strategy = 'flex',
     layout_config = {
@@ -230,6 +238,6 @@ global.map('n', '<leader>fs', builtins.live_grep)
 global.map('n', '<leader>fts', tmux_sessions)
 global.map('n', '<leader>ftw', tmux_windows)
 global.map('n', '<leader>f?', builtins.help_tags)
-global.map('n', '<leader>fcd', builtins.lsp_workspace_diagnostics)
+-- global.map('n', '<leader>fcd', builtins.lsp_workspace_diagnostics)
 global.map('n', '<leader>fcs', builtins.lsp_document_symbols)
 global.map('n', '<leader>fcw', builtins.lsp_dynamic_workspace_symbols)

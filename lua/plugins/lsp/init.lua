@@ -76,8 +76,6 @@ local on_attach = function(client, bufnr)
   if client.resolved_capabilities.document_formatting then
     vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
   end
-
-  require('illuminate').on_attach(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
