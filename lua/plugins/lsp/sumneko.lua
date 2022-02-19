@@ -1,6 +1,6 @@
 local M = {}
 local root = vim.fn.getenv 'HOME' .. '/sdk/lua-language-server/'
-local binary = root .. 'bin/macOS/lua-language-server'
+local binary = root .. 'bin/lua-language-server'
 
 M.setup = function(on_attach, capabilities)
   local luadev = require('lua-dev').setup {
